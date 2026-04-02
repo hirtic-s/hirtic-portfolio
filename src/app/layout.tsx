@@ -24,7 +24,7 @@ const okine = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Gallery Portfolio | Software Engineer",
+  title: "Hirtic Selvavinayagam | Software Engineer",
   description: "Portfolio of Hirtic Selvavinayagam - Software Engineer specializing in robust backend architectures and predictive modeling.",
 };
 
