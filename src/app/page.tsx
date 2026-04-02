@@ -199,9 +199,8 @@ export default function Home() {
                 <div className="preloader-logo"></div>
             </div>
 
-            <div className={isLoaded ? 'reveal-content' : 'opacity-0'}>
-                {/* Top Navigation Bar */}
-                <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-xl px-8 py-4 flex justify-between items-center w-full max-w-7xl mx-auto">
+            {/* Top Navigation Bar - Outside animation to stay fixed */}
+            <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-xl px-8 py-4 flex justify-between items-center w-full max-w-7xl mx-auto">
                 <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-green-500 text-sm animate-pulse" style={{ fontVariationSettings: "'FILL' 1" }}>fiber_manual_record</span>
                     <span className="font-label text-xs uppercase tracking-widest text-[#e5e1e4]">Open to work</span>
@@ -231,6 +230,8 @@ export default function Home() {
                     </a>
                 </div>
             </header>
+
+            <div className={isLoaded ? 'reveal-content' : 'opacity-0'}>
 
             <main className="relative pt-20 pb-40">
                 {/* Background Decorative Glows */}
@@ -629,11 +630,12 @@ export default function Home() {
                 </div>
             </main>
 
-            {/* Bottom Navigation Container */}
-            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
-                {/* Main Nav Bar */}
-                <nav className="flex items-center p-2 gap-5 bg-white/[0.08] backdrop-blur-3xl saturate-[1.8] rounded-full border border-white/[0.12] shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#">
+            </div>
+
+            {/* Floating Navigation Menu - Outside animation to stay fixed at viewport bottom */}
+            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+                <nav className="glass-card flex items-center px-4 py-3 gap-2 border border-white/10 shadow-2xl backdrop-blur-3xl">
+                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4] bg-white/10 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-white/20 rounded-2xl shadow-xl" href="#home">
                         <span className="material-symbols-outlined text-[24px] mb-[2px]">home</span>
                         <span className="font-label text-[9px] uppercase tracking-widest leading-none">Home</span>
                     </Link>
@@ -664,7 +666,6 @@ export default function Home() {
 
                 </nav>
             </div>
-        </div>
         </>
     );
 }
