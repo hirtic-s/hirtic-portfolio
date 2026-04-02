@@ -220,7 +220,7 @@ export default function Home() {
                     </div>
 
                     <a
-                        href="https://drive.google.com/file/d/1G1wTw3AlolQoNWvG2wbgmdSQIbRSGrLB/view?usp=drive_link"
+                        href="https://drive.google.com/file/d/1G1wTw3AlolQoNWvG2wbgmdSQIbRSGrLB/view?usp=sharing"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-[#10b981] text-[#000000] font-label font-bold px-6 py-2 rounded-full text-sm hover:scale-95 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300"

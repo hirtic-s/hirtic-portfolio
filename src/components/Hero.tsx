@@ -13,7 +13,7 @@ export default function Hero() {
         </div>
         <div />
         <a
-          href="https://drive.google.com/file/d/1G1wTw3AlolQoNWvG2wbgmdSQIbRSGrLB/view?usp=drive_link"
+          href="https://drive.google.com/file/d/1G1wTw3AlolQoNWvG2wbgmdSQIbRSGrLB/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           className="border border-purple rounded-full px-4 py-1.5 text-xs text-purple-light hover:bg-purple/10 transition-colors"
