@@ -41,19 +41,18 @@ export default function Home() {
         };
 
         const observerOptions = {
-            rootMargin: "-10% 0px -85% 0px", // High-precision focus on the top 15% (where headers land)
+            rootMargin: "-20% 0px -40% 0px", // Focus on the upper-middle part of the screen
             threshold: 0
         };
 
         const observerCallback = (entries: IntersectionObserverEntry[]) => {
-            // Skip observer updates if we are in the middle of a programmatic scroll (from a click)
             if (isScrollingRef.current) return;
-
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    updateNav(entry.target.getAttribute('id'));
-                }
-            });
+            
+            // Find the first intersecting entry (typically the top-most one in the trigger zone)
+            const activeEntry = entries.find(entry => entry.isIntersecting);
+            if (activeEntry) {
+                updateNav(activeEntry.target.id);
+            }
         };
 
         const observer = new IntersectionObserver(observerCallback, observerOptions);
@@ -231,12 +230,13 @@ export default function Home() {
                 </div>
             </header>
 
+            {/* Background Decorative Glows - Outside animation for fixed stability */}
+            <div className="fixed top-0 left-1/4 w-[800px] h-[800px] radial-glow -z-10 pointer-events-none"></div>
+            <div className="fixed bottom-0 right-1/4 w-[600px] h-[600px] radial-glow -z-10 pointer-events-none"></div>
+
             <div className={isLoaded ? 'reveal-content' : 'opacity-0'}>
 
             <main className="relative pt-20 pb-40">
-                {/* Background Decorative Glows */}
-                <div className="fixed top-0 left-1/4 w-[800px] h-[800px] radial-glow -z-10 pointer-events-none"></div>
-                <div className="fixed bottom-0 right-1/4 w-[600px] h-[600px] radial-glow -z-10 pointer-events-none"></div>
 
                 {/* Hero Section */}
                 <div className="section-bg w-full">
@@ -635,7 +635,7 @@ export default function Home() {
             {/* Floating Navigation Menu - Outside animation to stay fixed at viewport bottom */}
             <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
                 <nav className="glass-card flex items-center px-4 py-3 gap-2 border border-white/10 shadow-2xl backdrop-blur-3xl">
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4] bg-white/10 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-white/20 rounded-2xl shadow-xl" href="#home">
+                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#home">
                         <span className="material-symbols-outlined text-[24px] mb-[2px]">home</span>
                         <span className="font-label text-[9px] uppercase tracking-widest leading-none">Home</span>
                     </Link>
