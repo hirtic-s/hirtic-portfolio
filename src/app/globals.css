@@ -123,19 +123,38 @@
   stroke: #10b981;
   stroke-linecap: round;
   filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));
+  transform-origin: center;
 }
 
 .hud-ring-outer {
   stroke-width: 2;
+  animation: rotate-hud-outer 20s linear infinite;
 }
 
 .hud-ring-middle {
   stroke-width: 3;
+  animation: rotate-hud-middle 15s linear infinite reverse;
 }
 
 .hud-ring-inner {
   stroke-width: 1;
   opacity: 0.5;
+  animation: rotate-hud-inner 10s linear infinite;
+}
+
+@keyframes rotate-hud-outer {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-hud-middle {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-hud-inner {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .hud-frame-container:hover .hud-ring {
@@ -460,5 +479,48 @@
 /* Suppress transitions during rapid nav switching to prevent "phantoms" */
 .nav-switching, .nav-switching * {
     transition: none !important;
+}
+
+/* Preloader & Entrance Animations */
+.preloader {
+  position: fixed;
+  inset: 0;
+  background: #000000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+}
+
+.preloader.preloader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-logo {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #10b981;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.reveal-content {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 

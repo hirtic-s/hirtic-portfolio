@@ -6,6 +6,7 @@ const excon = localFont({
   src: "./fonts/Excon-Variable.woff2",
   variable: "--font-excon",
   display: "swap",
+  adjustFontFallback: "Arial",
 });
 
 const okine = localFont({
@@ -19,6 +20,7 @@ const okine = localFont({
   ],
   variable: "--font-okine",
   display: "swap",
+  adjustFontFallback: "Arial",
 });
 
 export const metadata: Metadata = {
@@ -34,9 +36,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${excon.variable} ${okine.variable} dark scroll-smooth`}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
-      <body className="antialiased overflow-x-hidden font-body">{children}</body>
+      <body className="antialiased overflow-x-hidden font-body bg-black text-[#e5e1e4]">
+        {children}
+      </body>
     </html>
   );
 }

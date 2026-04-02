@@ -1,16 +1,23 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import StackIcon from "tech-stack-icons";
 import CodeMascot from "@/components/CodeMascot";
 
 export default function Home() {
+    const [isLoaded, setIsLoaded] = useState(false);
     const hudRef = useRef<HTMLDivElement>(null);
     const ringOuterRef = useRef<SVGCircleElement>(null);
     const ringMiddleRef = useRef<SVGCircleElement>(null);
     const ringInnerRef = useRef<SVGCircleElement>(null);
     const isScrollingRef = useRef(false);
+
+    useEffect(() => {
+        // Fade out preloader after initial load
+        const timer = setTimeout(() => setIsLoaded(true), 1200);
+        return () => clearTimeout(timer);
+    }, []);
 
     useEffect(() => {
         // High-Performance Nav Tracking with Precise Center-Needle Observer
@@ -188,8 +195,13 @@ export default function Home() {
 
     return (
         <>
-            {/* Top Navigation Bar */}
-            <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-xl px-8 py-4 flex justify-between items-center w-full max-w-7xl mx-auto">
+            <div className={`preloader ${isLoaded ? 'preloader-hidden' : ''}`}>
+                <div className="preloader-logo"></div>
+            </div>
+
+            <div className={isLoaded ? 'reveal-content' : 'opacity-0'}>
+                {/* Top Navigation Bar */}
+                <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-xl px-8 py-4 flex justify-between items-center w-full max-w-7xl mx-auto">
                 <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-green-500 text-sm animate-pulse" style={{ fontVariationSettings: "'FILL' 1" }}>fiber_manual_record</span>
                     <span className="font-label text-xs uppercase tracking-widest text-[#e5e1e4]">Open to work</span>
@@ -652,6 +664,7 @@ export default function Home() {
 
                 </nav>
             </div>
+        </div>
         </>
     );
 }
