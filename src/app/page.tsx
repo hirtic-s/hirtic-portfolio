@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import StackIcon from "tech-stack-icons";
 import CodeMascot from "@/components/CodeMascot";
 
@@ -13,10 +14,30 @@ export default function Home() {
     const ringInnerRef = useRef<SVGCircleElement>(null);
     const isScrollingRef = useRef(false);
 
+    const [loadingStep, setLoadingStep] = useState(0);
+    const loadingMessages = [
+        "Initializing portfolio...",
+        "Assembling creative components...",
+        "Unveiling digital canvas..."
+    ];
+
     useEffect(() => {
-        // Fade out preloader after initial load
-        const timer = setTimeout(() => setIsLoaded(true), 1200);
-        return () => clearTimeout(timer);
+        const timer1 = setTimeout(() => setLoadingStep(1), 800);
+        const timer2 = setTimeout(() => setLoadingStep(2), 1800);
+        const timer3 = setTimeout(() => setIsLoaded(true), 3000);
+
+        // Ensure we wait for at least some initial loading
+        const handleLoad = () => {
+            // Optional: speed up if everything is already loaded
+        };
+
+        window.addEventListener('load', handleLoad);
+        return () => {
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+            clearTimeout(timer3);
+            window.removeEventListener('load', handleLoad);
+        };
     }, []);
 
     useEffect(() => {
@@ -194,9 +215,61 @@ export default function Home() {
 
     return (
         <>
-            <div className={`preloader ${isLoaded ? 'preloader-hidden' : ''}`}>
-                <div className="preloader-logo"></div>
-            </div>
+            <AnimatePresence>
+                {!isLoaded && (
+                    <motion.div
+                        className="preloader"
+                        initial={{ opacity: 1 }}
+                        exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
+                    >
+                        <div className="flex flex-col gap-6 max-w-sm w-full px-8">
+                            {loadingMessages.map((msg, idx) => (
+                                <motion.div
+                                    key={msg}
+                                    className="flex items-center gap-4"
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ 
+                                        opacity: loadingStep >= idx ? 1 : 0.3,
+                                        x: 0,
+                                        transition: { delay: idx * 0.1 }
+                                    }}
+                                >
+                                    <div className={`relative flex items-center justify-center w-6 h-6 rounded-full border transition-all duration-500 ${
+                                        loadingStep >= idx 
+                                            ? idx === 2 && loadingStep === 2 
+                                                ? "border-[#10b981] bg-transparent" 
+                                                : "bg-[#1d1d1f] border-white/10" 
+                                            : "border-white/10"
+                                    }`}>
+                                        {loadingStep >= idx ? (
+                                            <motion.span 
+                                                className={`material-symbols-outlined text-[16px] leading-none ${
+                                                    loadingStep > idx ? "text-[#10b981]" : "text-white/40"
+                                                }`}
+                                                initial={{ scale: 0 }}
+                                                animate={{ scale: 1 }}
+                                            >
+                                                {loadingStep > idx ? "check_circle" : idx === loadingStep ? "radio_button_checked" : "circle"}
+                                            </motion.span>
+                                        ) : (
+                                            <span className="material-symbols-outlined text-white/10 text-[16px]">circle</span>
+                                        )}
+                                    </div>
+                                    <span className={`text-sm font-medium tracking-tight transition-all duration-500 ${
+                                        loadingStep > idx 
+                                            ? "text-[#e5e1e4]/40" 
+                                            : loadingStep === idx 
+                                                ? "text-[#10b981]" 
+                                                : "text-[#e5e1e4]/20"
+                                    }`}>
+                                        {msg}
+                                    </span>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Top Navigation Bar - Outside animation to stay fixed */}
             <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-xl px-8 py-4 flex justify-between items-center w-full max-w-7xl mx-auto">
@@ -360,61 +433,37 @@ export default function Home() {
                         <p className="text-on-surface-variant font-body max-w-xl">A comprehensive view of the languages, frameworks, and cloud technologies powering my projects and architectural decisions.</p>
                     </div>
 
-                    <div className="relative flex whitespace-nowrap overflow-hidden py-10 select-none">
-                        <div className="animate-marquee flex gap-6 px-6">
-                            {[
-                                { name: "docker", label: "Docker" },
-                                { name: "git", label: "Git" },
-                                { name: "github", label: "GitHub" },
-                                { name: "postman", label: "Postman" },
-                                { name: "pytest", label: "Pytest" },
-                                { name: "html5", label: "HTML" },
-                                { name: "css3", label: "CSS" },
-                                { name: "react", label: "React" },
-                                { name: "nextjs", label: "Next.js" },
-                                { name: "tailwindcss", label: "Tailwind CSS" },
-                                { name: "flask", label: "Flask" },
-                                { name: "nodejs", label: "Node.js" },
-                                { name: "mysql", label: "REST APIs" },
-                                { name: "python", label: "Python" }
-                            ].map((tech, idx) => (
-                                <div key={`${tech.name}-${idx}`} className="tooltip-container">
-                                    <span className="tooltip-label">{tech.label}</span>
-                                    <div className="w-16 h-16 rounded-2xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-4 hover:bg-surface-container-highest transition-all duration-300 hover:-translate-y-2 cursor-pointer shadow-lg">
-                                        <StackIcon
-                                            name={tech.name as any}
-                                            variant="light"
-                                            className={`w-full h-full ${['github', 'nextjs', 'flask'].includes(tech.name) ? 'white-icon' : ''}`}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                            {/* Duplicate for infinite scroll */}
-                            {[
-                                { name: "docker", label: "Docker" },
-                                { name: "git", label: "Git" },
-                                { name: "github", label: "GitHub" },
-                                { name: "postman", label: "Postman" },
-                                { name: "pytest", label: "Pytest" },
-                                { name: "html5", label: "HTML" },
-                                { name: "css3", label: "CSS" },
-                                { name: "react", label: "React" },
-                                { name: "nextjs", label: "Next.js" },
-                                { name: "tailwindcss", label: "Tailwind CSS" },
-                                { name: "flask", label: "Flask" },
-                                { name: "nodejs", label: "Node.js" },
-                                { name: "mysql", label: "REST APIs" },
-                                { name: "python", label: "Python" }
-                            ].map((tech, idx) => (
-                                <div key={`dup-${tech.name}-${idx}`} className="tooltip-container">
-                                    <span className="tooltip-label">{tech.label}</span>
-                                    <div className="w-16 h-16 rounded-2xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-4 hover:bg-surface-container-highest transition-all duration-300 hover:-translate-y-2 cursor-pointer shadow-lg">
-                                        <StackIcon
-                                            name={tech.name as any}
-                                            variant="light"
-                                            className={`w-full h-full ${['github', 'nextjs', 'flask'].includes(tech.name) ? 'white-icon' : ''}`}
-                                        />
-                                    </div>
+                    <div className="relative overflow-hidden py-10 select-none">
+                        <div className="animate-marquee flex w-max shrink-0">
+                            {[0, 1, 2].map((setIdx) => (
+                                <div key={`set-${setIdx}`} className="flex gap-6 pr-6 shrink-0">
+                                    {[
+                                        { name: "docker", label: "Docker" },
+                                        { name: "git", label: "Git" },
+                                        { name: "github", label: "GitHub" },
+                                        { name: "postman", label: "Postman" },
+                                        { name: "pytest", label: "Pytest" },
+                                        { name: "html5", label: "HTML" },
+                                        { name: "css3", label: "CSS" },
+                                        { name: "react", label: "React" },
+                                        { name: "nextjs", label: "Next.js" },
+                                        { name: "tailwindcss", label: "Tailwind CSS" },
+                                        { name: "flask", label: "Flask" },
+                                        { name: "nodejs", label: "Node.js" },
+                                        { name: "mysql", label: "REST APIs" },
+                                        { name: "python", label: "Python" }
+                                    ].map((tech, idx) => (
+                                        <div key={`${tech.name}-${idx}`} className="tooltip-container">
+                                            <span className="tooltip-label">{tech.label}</span>
+                                            <div className="w-16 h-16 rounded-2xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-4 hover:bg-surface-container-highest transition-all duration-300 hover:-translate-y-2 cursor-pointer shadow-lg">
+                                                <StackIcon
+                                                    name={tech.name as any}
+                                                    variant="light"
+                                                    className={`w-full h-full ${['github', 'nextjs', 'flask'].includes(tech.name) ? 'white-icon' : ''}`}
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             ))}
                         </div>

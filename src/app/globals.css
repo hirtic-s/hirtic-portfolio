@@ -181,13 +181,13 @@
 /* Tech Stack Banner Animates */
 @keyframes marquee {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(-33.3333%); }
 }
 
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 40s linear infinite;
+  animation: marquee 60s linear infinite;
 }
 
 .animate-marquee:hover {
@@ -490,25 +490,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
-}
-
-.preloader.preloader-hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.preloader-logo {
-  width: 40px;
-  height: 40px;
-  border: 2px solid #10b981;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 .reveal-content {
