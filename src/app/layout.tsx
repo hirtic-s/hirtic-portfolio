@@ -26,6 +26,9 @@ const okine = localFont({
 export const metadata: Metadata = {
   title: "Hirtic Selvavinayagam | Software Engineer",
   description: "Portfolio of Hirtic Selvavinayagam - Software Engineer specializing in robust backend architectures and predictive modeling.",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
