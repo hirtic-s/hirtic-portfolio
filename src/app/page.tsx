@@ -195,7 +195,7 @@ export default function Home() {
 
     useEffect(() => {
         let rotationOuter = 0, rotationMiddle = 0, rotationInner = 0;
-        let currentSpeedOuter = 0.03, currentSpeedMiddle = -0.05, currentSpeedInner = 0.07;
+        let currentSpeedOuter = 0.015, currentSpeedMiddle = -0.02, currentSpeedInner = 0.035;
         let animationFrameId: number;
 
         const hudElement = hudRef.current;
@@ -216,9 +216,9 @@ export default function Home() {
             const t = 0.04 * delta;
             const isHovering = isHoveringRef.current;
 
-            const targetOuter = isHovering ? 0.15 : 0.03;
-            const targetMiddle = isHovering ? -0.25 : -0.05;
-            const targetInner = isHovering ? 0.35 : 0.07;
+            const targetOuter = isHovering ? 0.08 : 0.015;
+            const targetMiddle = isHovering ? -0.12 : -0.02;
+            const targetInner = isHovering ? 0.18 : 0.035;
 
             currentSpeedOuter = lerp(currentSpeedOuter, targetOuter, Math.min(t, 1));
             currentSpeedMiddle = lerp(currentSpeedMiddle, targetMiddle, Math.min(t, 1));
