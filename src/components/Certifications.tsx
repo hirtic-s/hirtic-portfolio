@@ -1,18 +1,18 @@
+import StackIcon from "tech-stack-icons";
+
 const certs = [
   {
     title: "AWS Certified Cloud Practitioner",
     id: "C5A46586-7B24-4F4E-A134",
     color: "bg-[#1a2332]",
-    iconColor: "text-[#48bb78]",
-    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+    iconName: "aws",
     verificationUrl: "https://www.credly.com/badges/60dba673-b120-4d91-8fd5-bf8fc8f592a0"
   },
   {
-    title: "Microsoft Azure AI Fundamentals",
+    title: "Microsoft Certified Azure AI Fundamentals",
     id: "DUAA-DWW2",
     color: "bg-[#2a1a1a]",
-    iconColor: "text-[#e53e3e]",
-    icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z",
+    iconName: "microsoft",
     verificationUrl: "https://www.credly.com/earner/earned/badge/b4581db1-e0dd-44e0-9960-1d0a96c8c54f"
   },
 ];
@@ -27,22 +27,14 @@ export default function Certifications() {
           {certs.map((cert) => (
             <div
               key={cert.title}
-              className={`${cert.color} border border-card-border rounded-xl p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4 transition-all duration-300 hover:shadow-lg`}
+              className={`${cert.color} border border-card-border rounded-xl p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4 transition-all duration-300 hover:translate-y-[-8px] hover:shadow-lg`}
             >
-              <div className="w-12 h-12 rounded-lg bg-black/30 flex items-center justify-center flex-shrink-0">
-                <svg
-                  className={`w-6 h-6 ${cert.iconColor}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d={cert.icon}
-                  />
-                </svg>
+              <div className="w-14 h-14 rounded-lg bg-black/30 flex items-center justify-center flex-shrink-0 p-2">
+                <StackIcon 
+                  name={cert.iconName as any} 
+                  variant="light" 
+                  className={`w-full h-full ${cert.iconName === 'aws' ? 'aws-logo-white' : ''}`} 
+                />
               </div>
               <div className="flex-1 text-center sm:text-left">
                 <h3 className="text-white font-semibold text-base mb-1">

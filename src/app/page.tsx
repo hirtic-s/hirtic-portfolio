@@ -83,23 +83,63 @@ export default function Home() {
 
         const nav = document.querySelector('nav');
 
-        // Instant click feedback
+        // Instant click feedback with center-aligned scrolling
         const handleNavClick = (e: MouseEvent) => {
             const target = (e.target as HTMLElement).closest('a');
             if (target) {
-                isScrollingRef.current = true;
-                lastClickTime = Date.now();
-                const href = target.getAttribute('href')?.substring(1) || 'home';
-                updateNav(href === '' ? 'home' : href);
+                const href = target.getAttribute('href');
+                if (href?.startsWith('#')) {
+                    e.preventDefault();
+                    isScrollingRef.current = true;
+                    lastClickTime = Date.now();
+                    const sectionId = href.substring(1) || 'home';
+                    
+                    const element = document.getElementById(sectionId === '' ? 'home' : sectionId);
+                    
+                    // Revert behavior specifically for Skills and Projects
+                    const forceTopAligned = ['skills', 'projects'];
+                    
+                    if (sectionId === 'home' || sectionId === '') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else if (forceTopAligned.includes(sectionId)) {
+                        let offset = 0;
+                        if (sectionId === 'skills') offset = 70;
+                        if (sectionId === 'projects') offset = 90; // Aligns "Projects" title just below header
+                        
+                        const elementPosition = element ? element.getBoundingClientRect().top + window.pageYOffset : 0;
+                        window.scrollTo({ 
+                            top: elementPosition - offset, 
+                            behavior: 'smooth' 
+                        });
+                    } else if (element) {
+                        const windowHeight = window.innerHeight;
+                        const elementHeight = element.offsetHeight;
+                        
+                        // If element is smaller than viewport, center it
+                        // Otherwise, scroll to top with safe margin for fixed header
+                        if (elementHeight < windowHeight * 0.7) {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        } else {
+                            const offset = 100; // Consistent margin below fixed header
+                            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                            window.scrollTo({
+                                top: elementPosition - offset,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
 
-                // Add switching class to suppress "phantom" transitions
-                nav?.classList.add('nav-switching');
-                setTimeout(() => nav?.classList.remove('nav-switching'), 500);
+                    updateNav(sectionId === '' ? 'home' : sectionId);
 
-                // Fallback: Reset the scroll lock after 2.5s to ensure total focus on the target
-                setTimeout(() => {
-                    isScrollingRef.current = false;
-                }, 2500);
+                    // Add switching class to suppress "phantom" transitions
+                    nav?.classList.add('nav-switching');
+                    setTimeout(() => nav?.classList.remove('nav-switching'), 500);
+
+                    // Fallback: Reset the scroll lock once the smooth scroll is likely finished
+                    setTimeout(() => {
+                        isScrollingRef.current = false;
+                    }, 1000);
+                }
             }
         };
 
@@ -235,10 +275,10 @@ export default function Home() {
                                     }}
                                 >
                                     <div className={`relative flex items-center justify-center w-6 h-6 rounded-full border transition-all duration-500 ${loadingStep >= idx
-                                            ? idx === 2 && loadingStep === 2
-                                                ? "border-[#10b981] bg-transparent"
-                                                : "bg-[#1d1d1f] border-white/10"
-                                            : "border-white/10"
+                                        ? idx === 2 && loadingStep === 2
+                                            ? "border-[#10b981] bg-transparent"
+                                            : "bg-[#1d1d1f] border-white/10"
+                                        : "border-white/10"
                                         }`}>
                                         {loadingStep >= idx ? (
                                             <motion.span
@@ -254,10 +294,10 @@ export default function Home() {
                                         )}
                                     </div>
                                     <span className={`text-sm font-medium tracking-tight transition-all duration-500 ${loadingStep > idx
-                                            ? "text-[#e5e1e4]/40"
-                                            : loadingStep === idx
-                                                ? "text-[#10b981]"
-                                                : "text-[#e5e1e4]/20"
+                                        ? "text-[#e5e1e4]/40"
+                                        : loadingStep === idx
+                                            ? "text-[#10b981]"
+                                            : "text-[#e5e1e4]/20"
                                         }`}>
                                         {msg}
                                     </span>
@@ -310,7 +350,7 @@ export default function Home() {
 
                     {/* Hero Section */}
                     <div className="section-bg w-full">
-                        <section className="max-w-7xl mx-auto px-8 mb-32 min-h-[calc(100vh-8rem)] flex items-start pt-4 scroll-mt-32" id="home">
+                        <section className="max-w-7xl mx-auto px-8 mb-32 min-h-[calc(100vh-8rem)] flex items-start pt-4 scroll-mt-40" id="home">
                             <div className="flex flex-col md:flex-row items-center w-full">
                                 <div className="max-w-2xl">
                                     <CodeMascot />
@@ -423,7 +463,7 @@ export default function Home() {
                     </div>
 
                     {/* Technology Stack Banner Section */}
-                    <section className="relative w-full mb-32 overflow-hidden py-24 scroll-mt-32 section-bg-4" id="skills">
+                    <section className="relative w-full mb-32 overflow-hidden py-24 scroll-mt-40 section-bg-4" id="skills">
                         <div className="nature-overlay"></div>
                         <div className="max-w-7xl mx-auto px-8 mb-12 relative z-10">
                             <h2 className="text-4xl font-headline font-bold text-[#e5e1e4] mb-4">Skills</h2>
@@ -511,7 +551,7 @@ export default function Home() {
 
                     {/* Projects, Certifications, and Contact Sections */}
                     <div className="section-bg-6 w-full py-16">
-                        <section className="max-w-7xl mx-auto px-8 mb-32 scroll-mt-32" id="projects">
+                        <section className="max-w-7xl mx-auto px-8 mb-32 scroll-mt-40" id="projects">
                             <h2 className="text-4xl font-headline font-bold text-[#e5e1e4] mb-12">Projects</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {/* Project 1 */}
@@ -649,10 +689,10 @@ export default function Home() {
                         </section>
 
                         {/* Certifications Section */}
-                        <section className="max-w-7xl mx-auto px-8 mb-32 scroll-mt-32" id="certifications">
+                        <section className="max-w-7xl mx-auto px-8 mb-32 scroll-mt-40" id="certifications">
                             <h2 className="text-4xl font-headline font-bold text-[#e5e1e4] mb-12">Certifications</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-6 border border-primary/20 bg-primary-container/5 hover:bg-primary-container/10 transition-colors">
+                                <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-6 border border-primary/20 bg-primary-container/5 hover:bg-primary-container/10 transition-all duration-300 hover:translate-y-[-8px]">
                                     <div className="w-16 h-16 rounded-2xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-3 transition-all duration-300 shadow-lg group-hover:scale-105">
                                         <StackIcon name="aws" variant="light" className="w-full h-full aws-logo-white" />
                                     </div>
@@ -665,12 +705,12 @@ export default function Home() {
                                         </a>
                                     </div>
                                 </div>
-                                <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-6 border border-tertiary/20 bg-tertiary-container/5 hover:bg-tertiary-container/10 transition-colors">
+                                <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-6 border border-tertiary/20 bg-tertiary-container/5 hover:bg-tertiary-container/10 transition-all duration-300 hover:translate-y-[-8px]">
                                     <div className="w-16 h-16 rounded-2xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-3 transition-all duration-300 shadow-lg group-hover:scale-105">
-                                        <StackIcon name="azure" variant="light" className="w-full h-full" />
+                                        <StackIcon name="microsoft" variant="light" className="w-full h-full" />
                                     </div>
                                     <div className="flex-1">
-                                        <h4 className="text-xl font-headline font-bold text-white">Microsoft Azure AI Fundamentals</h4>
+                                        <h4 className="text-xl font-headline font-bold text-white">Microsoft Certified Azure AI Fundamentals</h4>
                                         <p className="text-xs text-[#10b981] mt-1 font-mono uppercase tracking-widest mb-4">ID: dUaa-DwW2</p>
                                         <a href="https://www.credly.com/earner/earned/badge/b4581db1-e0dd-44e0-9960-1d0a96c8c54f" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-tertiary/10 text-tertiary text-xs font-bold hover:bg-tertiary hover:text-on-tertiary transition-all duration-300">
                                             <span className="material-symbols-outlined text-sm">verified</span>
@@ -689,31 +729,31 @@ export default function Home() {
             {/* Floating Navigation Menu - Outside animation to stay fixed at viewport bottom */}
             <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
                 <nav className="glass-card flex items-center px-4 py-3 gap-2 border border-white/10 shadow-2xl backdrop-blur-3xl">
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#home">
+                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#home" scroll={false}>
                         <span className="material-symbols-outlined text-[24px] mb-[2px]">home</span>
                         <span className="font-label text-[9px] uppercase tracking-widest leading-none">Home</span>
                     </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#about">
+                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#about" scroll={false}>
                         <span className="material-symbols-outlined text-[24px] mb-[2px]">person</span>
                         <span className="font-label text-[9px] uppercase tracking-widest leading-none">About</span>
                     </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#education">
+                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#education" scroll={false}>
                         <span className="material-symbols-outlined text-[24px] mb-[2px]">school</span>
                         <span className="font-label text-[9px] uppercase tracking-widest leading-none">Education</span>
                     </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#skills">
+                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#skills" scroll={false}>
                         <span className="material-symbols-outlined text-[24px] mb-[2px]">psychology</span>
                         <span className="font-label text-[9px] uppercase tracking-widest leading-none">Skills</span>
                     </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#experience">
+                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#experience" scroll={false}>
                         <span className="material-symbols-outlined text-[24px] mb-[2px]">work</span>
                         <span className="font-label text-[9px] uppercase tracking-widest leading-none">Experience</span>
                     </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#projects">
+                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#projects" scroll={false}>
                         <span className="material-symbols-outlined text-[24px] mb-[2px]">grid_view</span>
                         <span className="font-label text-[9px] uppercase tracking-widest leading-none">Projects</span>
                     </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#certifications">
+                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#certifications" scroll={false}>
                         <span className="material-symbols-outlined text-[24px] mb-[2px]">verified</span>
                         <span className="font-label text-[9px] uppercase tracking-widest leading-none">Certs</span>
                     </Link>
