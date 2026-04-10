@@ -93,28 +93,28 @@ export default function Home() {
                     isScrollingRef.current = true;
                     lastClickTime = Date.now();
                     const sectionId = href.substring(1) || 'home';
-                    
+
                     const element = document.getElementById(sectionId === '' ? 'home' : sectionId);
-                    
+
                     // Revert behavior specifically for Skills and Projects
                     const forceTopAligned = ['skills', 'projects'];
-                    
+
                     if (sectionId === 'home' || sectionId === '') {
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     } else if (forceTopAligned.includes(sectionId)) {
                         let offset = 0;
                         if (sectionId === 'skills') offset = 70;
                         if (sectionId === 'projects') offset = 90; // Aligns "Projects" title just below header
-                        
+
                         const elementPosition = element ? element.getBoundingClientRect().top + window.pageYOffset : 0;
-                        window.scrollTo({ 
-                            top: elementPosition - offset, 
-                            behavior: 'smooth' 
+                        window.scrollTo({
+                            top: elementPosition - offset,
+                            behavior: 'smooth'
                         });
                     } else if (element) {
                         const windowHeight = window.innerHeight;
                         const elementHeight = element.offsetHeight;
-                        
+
                         // If element is smaller than viewport, center it
                         // Otherwise, scroll to top with safe margin for fixed header
                         if (elementHeight < windowHeight * 0.7) {
@@ -429,7 +429,7 @@ export default function Home() {
                                     <div className="relative pl-8">
                                         <div className="absolute left-[-5px] top-6 w-[10px] h-[10px] rounded-full bg-primary shadow-[0_0_10px_#cdbdff]"></div>
                                         <div className="glass-card p-8 hover:bg-white/5 transition-all">
-                                            <span className="text-tertiary font-label text-xs uppercase mb-2 block">2022 — expected 2026</span>
+                                            <span className="text-tertiary font-label text-xs uppercase mb-2 block">Sept 2022 — expected 2026</span>
                                             <h3 className="text-2xl font-headline font-bold text-[#10b981] mb-2">Vellore Institute of Technology</h3>
                                             <p className="text-primary text-sm font-label mb-4">B.Tech in Computer Science Engineering</p>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
@@ -443,8 +443,9 @@ export default function Home() {
                                     <div className="relative pl-8">
                                         <div className="absolute left-[-5px] top-6 w-[10px] h-[10px] rounded-full bg-outline-variant"></div>
                                         <div className="glass-card p-8 hover:bg-white/5 transition-all">
-                                            <span className="text-tertiary font-label text-xs uppercase mb-2 block">Secondary &amp; Senior Secondary</span>
+                                            <span className="text-tertiary font-label text-xs uppercase mb-2 block">Sept 2010 — May 2022</span>
                                             <h3 className="text-2xl font-headline font-bold text-[#10b981] mb-2">Asian International Private School</h3>
+                                            <p className="text-primary text-sm font-label mb-4">CBSE - Science Stream (PCM)</p>
                                             <div className="grid grid-cols-2 gap-4 mt-4">
                                                 <div className="bg-surface-container-low p-4 rounded-xl">
                                                     <p className="text-xs text-on-surface-variant uppercase mb-1">Grade 12</p>

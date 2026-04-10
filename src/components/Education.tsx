@@ -42,8 +42,8 @@ export default function Education() {
             <div className="relative pl-12">
               <div className="absolute left-2.5 top-2 w-3 h-3 rounded-full bg-purple timeline-dot" />
               <div className="bg-card-bg border border-card-border rounded-xl p-6">
-                <span className="inline-block text-muted text-xs uppercase tracking-wider mb-2">
-                  Secondary &amp; Senior Secondary
+                <span className="inline-block bg-purple/20 text-purple-light text-xs px-3 py-1 rounded-full mb-3">
+                  2010 &mdash; 2022
                 </span>
                 <h3 className="text-xl font-semibold text-[#10b981]">
                   Asian International Private School
