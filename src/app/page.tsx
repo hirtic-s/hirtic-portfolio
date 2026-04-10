@@ -652,22 +652,30 @@ export default function Home() {
                         <section className="max-w-7xl mx-auto px-8 mb-32 scroll-mt-32" id="certifications">
                             <h2 className="text-4xl font-headline font-bold text-[#e5e1e4] mb-12">Certifications</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div className="glass-card p-8 flex items-center gap-6 border border-primary/20 bg-primary-container/5 hover:bg-primary-container/10 transition-colors">
+                                <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-6 border border-primary/20 bg-primary-container/5 hover:bg-primary-container/10 transition-colors">
                                     <div className="w-16 h-16 rounded-2xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-3 transition-all duration-300 shadow-lg group-hover:scale-105">
                                         <StackIcon name="aws" variant="light" className="w-full h-full aws-logo-white" />
                                     </div>
-                                    <div>
+                                    <div className="flex-1">
                                         <h4 className="text-xl font-headline font-bold text-white">AWS Certified Cloud Practitioner</h4>
-                                        <p className="text-xs text-[#10b981] mt-1 font-mono uppercase tracking-widest">ID: c5a46586-7b24-4f4e-a134</p>
+                                        <p className="text-xs text-[#10b981] mt-1 font-mono uppercase tracking-widest mb-4">ID: c5a46586-7b24-4f4e-a134</p>
+                                        <a href="https://www.credly.com/badges/60dba673-b120-4d91-8fd5-bf8fc8f592a0" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-on-primary transition-all duration-300">
+                                            <span className="material-symbols-outlined text-sm">verified</span>
+                                            Verify Certificate
+                                        </a>
                                     </div>
                                 </div>
-                                <div className="glass-card p-8 flex items-center gap-6 border border-tertiary/20 bg-tertiary-container/5 hover:bg-tertiary-container/10 transition-colors">
+                                <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-6 border border-tertiary/20 bg-tertiary-container/5 hover:bg-tertiary-container/10 transition-colors">
                                     <div className="w-16 h-16 rounded-2xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-3 transition-all duration-300 shadow-lg group-hover:scale-105">
                                         <StackIcon name="azure" variant="light" className="w-full h-full" />
                                     </div>
-                                    <div>
+                                    <div className="flex-1">
                                         <h4 className="text-xl font-headline font-bold text-white">Microsoft Azure AI Fundamentals</h4>
-                                        <p className="text-xs text-[#10b981] mt-1 font-mono uppercase tracking-widest">ID: dUaa-DwW2</p>
+                                        <p className="text-xs text-[#10b981] mt-1 font-mono uppercase tracking-widest mb-4">ID: dUaa-DwW2</p>
+                                        <a href="https://www.credly.com/earner/earned/badge/b4581db1-e0dd-44e0-9960-1d0a96c8c54f" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-tertiary/10 text-tertiary text-xs font-bold hover:bg-tertiary hover:text-on-tertiary transition-all duration-300">
+                                            <span className="material-symbols-outlined text-sm">verified</span>
+                                            Verify Certificate
+                                        </a>
                                     </div>
                                 </div>
                             </div>
