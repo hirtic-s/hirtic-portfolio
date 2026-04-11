@@ -713,7 +713,7 @@ export default function Home() {
                                     <div className="flex-1">
                                         <h4 className="text-xl font-headline font-bold text-white">Microsoft Certified Azure AI Fundamentals</h4>
                                         <p className="text-xs text-[#10b981] mt-1 font-mono uppercase tracking-widest mb-4">ID: dUaa-DwW2</p>
-                                        <a href="https://www.credly.com/earner/earned/badge/b4581db1-e0dd-44e0-9960-1d0a96c8c54f" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-tertiary/10 text-tertiary text-xs font-bold hover:bg-tertiary hover:text-on-tertiary transition-all duration-300">
+                                        <a href="https://www.credly.com/badges/b4581db1-e0dd-44e0-9960-1d0a96c8c54f" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-tertiary/10 text-tertiary text-xs font-bold hover:bg-tertiary hover:text-on-tertiary transition-all duration-300">
                                             <span className="material-symbols-outlined text-sm">verified</span>
                                             Verify Certificate
                                         </a>
