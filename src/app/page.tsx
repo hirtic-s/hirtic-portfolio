@@ -590,7 +590,7 @@ export default function Home() {
                                         <div className="mt-auto flex items-center gap-3">
                                             <a href="https://avail-api.vercel.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-on-primary transition-all duration-300">
                                                 <span className="material-symbols-outlined text-sm">open_in_new</span>
-                                                Live Demo
+                                                Live
                                             </a>
                                             <a href="https://www.github.com/hirtic-s/AvailAPI" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-all duration-300" title="GitHub Repository">
                                                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -635,7 +635,7 @@ export default function Home() {
                                         <div className="mt-auto flex items-center gap-3">
                                             <a href="https://vanishvault.vercel.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-on-primary transition-all duration-300">
                                                 <span className="material-symbols-outlined text-sm">open_in_new</span>
-                                                Live Demo
+                                                Live
                                             </a>
                                             <a href="https://github.com/hirtic-s/vanishvault" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-all duration-300" title="GitHub Repository">
                                                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -702,7 +702,7 @@ export default function Home() {
                                         <p className="text-xs text-[#10b981] mt-1 font-mono uppercase tracking-widest mb-4">ID: c5a46586-7b24-4f4e-a134</p>
                                         <a href="https://www.credly.com/badges/60dba673-b120-4d91-8fd5-bf8fc8f592a0" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-on-primary transition-all duration-300">
                                             <span className="material-symbols-outlined text-sm">verified</span>
-                                            Verify Certificate
+                                            Verify
                                         </a>
                                     </div>
                                 </div>
@@ -715,7 +715,7 @@ export default function Home() {
                                         <p className="text-xs text-[#10b981] mt-1 font-mono uppercase tracking-widest mb-4">ID: dUaa-DwW2</p>
                                         <a href="https://www.credly.com/badges/b4581db1-e0dd-44e0-9960-1d0a96c8c54f" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-tertiary/10 text-tertiary text-xs font-bold hover:bg-tertiary hover:text-on-tertiary transition-all duration-300">
                                             <span className="material-symbols-outlined text-sm">verified</span>
-                                            Verify Certificate
+                                            Verify
                                         </a>
                                     </div>
                                 </div>

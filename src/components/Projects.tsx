@@ -74,7 +74,7 @@ export default function Projects() {
                   {project.demo && (
                     <a href={project.demo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-[10px] font-bold hover:bg-primary hover:text-on-primary transition-all duration-300">
                       <span className="material-symbols-outlined text-sm">open_in_new</span>
-                      Live Demo
+                      Live
                     </a>
                   )}
                   <a href={project.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-all duration-300" title="GitHub Repository">
