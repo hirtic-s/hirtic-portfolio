@@ -556,16 +556,18 @@ export default function Home() {
                             <h2 className="text-4xl font-headline font-bold text-[#e5e1e4] mb-12">Projects</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {/* Project 1 */}
-                                <div className="glass-card flex flex-col group hover:translate-y-[-8px] transition-all duration-300">
+                                <div className="glass-card grid grid-rows-[auto_1fr] group hover:translate-y-[-8px] transition-all duration-300 h-full">
                                     <div className="h-48 rounded-t-[1.5rem] overflow-hidden relative">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" data-alt="abstract visualization of server data flow with purple and blue glowing connections in a dark void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXKummhWbYNDiv15eLjMhBqTH_U9kU_dAeQaMnFT6P2VChkP2xmNOPTdHlbJAek-7v-JOdES9GwBrUzkxS84-xr4SSvHHQC1hFI4MmWFKtDDK4qJFaeedH7uutouv_8Wt_ijWGK0nLdBxRpKLk-OynuSbiIIj9SDjYxMtiOs7h2Vbw8y_sTaigUmzH1_N25yX-F8pOQWaUFlMGc5PsgWUk8m6dw-GZKPQny-MWUScmfpl8FIxPbUke8ybUCdqvATI-bsOM-fi8LMcB" alt="AvailAPI context visualization" />
+                                        <img className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" data-alt="abstract visualization of server data flow with purple and blue glowing connections in a dark void" src="/projects/availapi.png" alt="AvailAPI context visualization" />
                                         <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent"></div>
                                     </div>
-                                    <div className="p-8">
-                                        <h3 className="text-2xl font-headline font-bold mb-3">AvailAPI</h3>
-                                        <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Engineered <span className="modern-highlighter">sub-60-second</span> incident detection for critical API infrastructure using high-performance monitoring stacks.</p>
-                                        <div className="mt-auto flex flex-wrap gap-4 items-center justify-center mb-6">
+                                    <div className="p-8 flex flex-col flex-1">
+                                        <div className="flex-grow">
+                                            <h3 className="text-2xl font-headline font-bold mb-3">AvailAPI</h3>
+                                            <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Engineered <span className="modern-highlighter">sub-60-second</span> incident detection for critical API infrastructure using high-performance monitoring stacks.</p>
+                                        </div>
+                                        <div className="flex flex-wrap gap-4 items-center justify-center mb-6">
                                             {[
                                                 { name: "java", label: "Java" },
                                                 { name: "spring", label: "Spring Boot" },
@@ -587,7 +589,7 @@ export default function Home() {
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="mt-auto flex items-center gap-3">
+                                        <div className="flex items-center gap-3">
                                             <a href="https://avail-api.vercel.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-on-primary transition-all duration-300">
                                                 <span className="material-symbols-outlined text-sm">open_in_new</span>
                                                 Live
@@ -601,16 +603,18 @@ export default function Home() {
                                     </div>
                                 </div>
                                 {/* Project 2 */}
-                                <div className="glass-card flex flex-col group hover:translate-y-[-8px] transition-all duration-300">
+                                <div className="glass-card grid grid-rows-[auto_1fr] group hover:translate-y-[-8px] transition-all duration-300 h-full">
                                     <div className="h-48 rounded-t-[1.5rem] overflow-hidden relative">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" data-alt="conceptual digital security vault with shimmering holographic lock and purple atmospheric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjj7a1nIvCSW09uCvU7tRNKH305AQuV0uXPaQBA5oSUCgwlNs1nHz5gAuSq-MZ7gawFrxjH-TglQ-XTvqxNHVRPw_8LyfLQnAXEBWPkE4du_u2VA6ZNbCjpj7R_jjDMWsGZ5oOYb_mS7T50Q0WuFGDZfm5WsYA1jqvE-mVj37A4OhbPQjyAkghbVsUdlItb8L7iSmYuIObXd65hRS4R55wXcm4hibcDIH3LHpI36B8h0Jey-c_f5LlBrjUUR4_4jnJ3A_TBHCEyYge" alt="Vanish Vault Concept" />
+                                        <img className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" data-alt="conceptual digital security vault with shimmering holographic lock and purple atmospheric lighting" src="/projects/vanishvault.png" alt="Vanish Vault Concept" />
                                         <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent"></div>
                                     </div>
-                                    <div className="p-8">
-                                        <h3 className="text-2xl font-headline font-bold mb-3">Vanish Vault</h3>
-                                        <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Architected secure, automated data disposal platform <span className="modern-highlighter">leveraging AWS infrastructure</span> for ephemeral storage management.</p>
-                                        <div className="mt-auto flex flex-wrap gap-4 items-center justify-center mb-6">
+                                    <div className="p-8 flex flex-col flex-1">
+                                        <div className="flex-grow">
+                                            <h3 className="text-2xl font-headline font-bold mb-3">Vanish Vault</h3>
+                                            <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Architected secure, automated data disposal platform <span className="modern-highlighter">leveraging AWS infrastructure</span> for ephemeral storage management.</p>
+                                        </div>
+                                        <div className="flex flex-wrap gap-4 items-center justify-center mb-6">
                                             {[
                                                 { name: "java", label: "Java" },
                                                 { name: "spring", label: "Spring Boot" },
@@ -632,7 +636,7 @@ export default function Home() {
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="mt-auto flex items-center gap-3">
+                                        <div className="flex items-center gap-3">
                                             <a href="https://vanishvault.vercel.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-on-primary transition-all duration-300">
                                                 <span className="material-symbols-outlined text-sm">open_in_new</span>
                                                 Live
@@ -645,23 +649,26 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                                {/* Project 3 */}
-                                <div className="glass-card flex flex-col group hover:translate-y-[-8px] transition-all duration-300">
+                                {/* Project 3 - GooDeals */}
+                                <div className="glass-card grid grid-rows-[auto_1fr] group hover:translate-y-[-8px] transition-all duration-300 h-full">
                                     <div className="h-48 rounded-t-[1.5rem] overflow-hidden relative">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" data-alt="e-commerce interface elements floating in a deep purple digital space with soft shadow depth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSTm_F-F44s_UozqSBEaAysfj7JnIK6cNCrmIjQa5n9NiJawviSxcIcieuMhD5bOdRVkAkOFsVlVHkc_wjcX1KhtsJj2ViczoPq_gI-_I4kDtBsF4Kr39LNYMuT63zdFxpUjc9V4vzs1cBJNcr6VjYFsSB8PhL512oBHoWrlZ5tVViFK_Ozgbxb1Y7ZS1UhttzFbmpAKS9A9wZjhM0XZQUt7b86G_Cy11XcIOKk3znyAwc06_IklZbIcZ0NPs4qJeoyIhRdstjBZxx" alt="DealHive Visualization" />
+                                        <img className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" data-alt="AI-powered shopping assistant with glowing deal cards floating in a dark digital space with green and purple accents" src="/projects/goodeals.png" alt="GooDeals AI Shopping Platform" />
                                         <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent"></div>
                                     </div>
-                                    <div className="p-8">
-                                        <h3 className="text-2xl font-headline font-bold mb-3">DealHive</h3>
-                                        <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Full-stack price comparison engine designed to aggregate and <span className="modern-highlighter">normalize complex data</span> across multiple vendors.</p>
-                                        <div className="mt-auto flex flex-wrap gap-4 items-center justify-center mb-8">
+                                    <div className="p-8 flex flex-col flex-1">
+                                        <div className="flex-grow">
+                                            <h3 className="text-2xl font-headline font-bold mb-3">GooDeals</h3>
+                                            <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Full-stack platform with a <span className="modern-highlighter">Gemini-powered AI assistant</span> aggregating real-time deals across Amazon, Flipkart &amp; 3+ sites, reducing user spend by 10%.</p>
+                                        </div>
+                                        <div className="flex flex-wrap gap-4 items-center justify-center mb-6">
                                             {[
+                                                { name: "java", label: "Java" },
+                                                { name: "spring", label: "Spring Boot" },
                                                 { name: "react", label: "React" },
-                                                { name: "nodejs", label: "Node.js" },
                                                 { name: "postgresql", label: "PostgreSQL" },
                                                 { name: "docker", label: "Docker" },
-                                                { name: "tailwindcss", label: "Tailwind CSS" }
+                                                { name: "gemini", label: "Gemini AI" }
                                             ].map((tech, idx) => (
                                                 <div key={`${tech.name}-${idx}`} className="tooltip-container relative flex items-center justify-center">
                                                     <div className="w-12 h-12 rounded-xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-110">
@@ -677,8 +684,8 @@ export default function Home() {
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="mt-auto">
-                                            <a href="https://www.github.com/hirtic-s/DealHive" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-all duration-300" title="GitHub Repository">
+                                        <div className="flex items-center gap-3">
+                                            <a href="https://www.github.com/hirtic-s/GooDeals" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-all duration-300" title="GitHub Repository">
                                                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
                                                 </svg>
