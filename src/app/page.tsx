@@ -282,15 +282,20 @@ export default function Home() {
                                         }`}>
                                         {loadingStep >= idx ? (
                                             <motion.span
-                                                className={`material-symbols-outlined text-[16px] leading-none ${loadingStep > idx ? "text-[#10b981]" : "text-white/40"
-                                                    }`}
+                                                className={`flex items-center justify-center ${loadingStep > idx ? "text-[#10b981]" : "text-white/40"}`}
                                                 initial={{ scale: 0 }}
                                                 animate={{ scale: 1 }}
                                             >
-                                                {loadingStep > idx ? "check_circle" : idx === loadingStep ? "radio_button_checked" : "circle"}
+                                                {loadingStep > idx ? (
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5-4.5-4.5 1.41-1.41L10 13.67l7.09-7.09 1.41 1.41L10 16.5z"/></svg>
+                                                ) : idx === loadingStep ? (
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                                                ) : (
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                                                )}
                                             </motion.span>
                                         ) : (
-                                            <span className="material-symbols-outlined text-white/10 text-[16px]">circle</span>
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.1)"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
                                         )}
                                     </div>
                                     <span className={`text-sm font-medium tracking-tight transition-all duration-500 ${loadingStep > idx
@@ -567,7 +572,7 @@ export default function Home() {
                                             <h3 className="text-2xl font-headline font-bold mb-3">AvailAPI</h3>
                                             <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Engineered <span className="modern-highlighter">sub-60-second</span> incident detection for critical API infrastructure using high-performance monitoring stacks.</p>
                                         </div>
-                                        <div className="flex flex-wrap gap-4 items-center justify-center mb-6">
+                                        <div className="flex flex-wrap gap-4 items-center justify-start mb-6">
                                             {[
                                                 { name: "java", label: "Java" },
                                                 { name: "spring", label: "Spring Boot" },
@@ -614,7 +619,7 @@ export default function Home() {
                                             <h3 className="text-2xl font-headline font-bold mb-3">Vanish Vault</h3>
                                             <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Architected secure, automated data disposal platform <span className="modern-highlighter">leveraging AWS infrastructure</span> for ephemeral storage management.</p>
                                         </div>
-                                        <div className="flex flex-wrap gap-4 items-center justify-center mb-6">
+                                        <div className="flex flex-wrap gap-4 items-center justify-start mb-6">
                                             {[
                                                 { name: "java", label: "Java" },
                                                 { name: "spring", label: "Spring Boot" },
