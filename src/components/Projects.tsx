@@ -56,18 +56,20 @@ export default function Projects() {
                 <h3 className="text-white font-semibold text-lg mb-2">
                   {project.title}
                 </h3>
-                <p className="text-muted text-xs leading-relaxed mb-4">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="bg-badge-bg border border-badge-border text-[10px] text-muted px-2.5 py-1 rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                <div className="flex-1">
+                  <p className="text-muted text-xs leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 items-start" style={{justifyContent: 'flex-start'}}>
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="bg-badge-bg border border-badge-border text-[10px] text-muted px-2.5 py-1 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="mt-auto flex items-center gap-3">
