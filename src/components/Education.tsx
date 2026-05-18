@@ -32,7 +32,7 @@ export default function Education() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                   <div className="bg-card-bg border border-card-border p-4 rounded-xl">
                     <p className="text-xs text-muted uppercase mb-1">CGPA</p>
-                    <p className="text-lg font-bold text-white">8.06/10</p>
+                    <p className="text-lg font-bold text-white">8.09/10</p>
                   </div>
                 </div>
               </div>

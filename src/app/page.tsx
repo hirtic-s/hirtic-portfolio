@@ -440,7 +440,7 @@ export default function Home() {
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                                                 <div className="bg-surface-container-low p-4 rounded-xl">
                                                     <p className="text-xs text-on-surface-variant uppercase mb-1">CGPA</p>
-                                                    <p className="text-lg font-bold text-primary">8.06/10</p>
+                                                    <p className="text-lg font-bold text-primary">8.09/10</p>
                                                 </div>
                                             </div>
                                         </div>
