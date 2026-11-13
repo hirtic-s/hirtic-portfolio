@@ -56,9 +56,23 @@
 #more .proj-links { margin-top: var(--s-2); }
 @media (max-width: 639px) { #more .panel { --p-h: 180px; } }
 
-/* Yokogawa: the logo on its own blue as the section's picture */
+/* Hero: the facts docked on the photograph's bottom line; below 1024 the hero keeps to one screen without them */
+@media (min-width: 1024px) {
+  .hero--split .hero__text { align-self: stretch; display: flex; flex-direction: column; }
+  .hero--split .hero__text > .hero__facts { margin-top: auto; }
+}
+@media (max-width: 1023px) { .hero--split .hero__facts { display: none; } }
+
+/* About: the statement, then the education figures on the column lines */
+.about-stats { margin-top: var(--s-8); }
+.about-stats dt { color: var(--muted); font-size: var(--t-small); }
+/* proportional figures, so the decimal point in 8.09 is not set a figure wide */
+.about-stats .t-stat { font-variant-numeric: proportional-nums; font-size: clamp(30px, 1.6vw + 20px, 48px); }
+@media (min-width: 1024px) { .about-stats { margin-top: auto; } }
+
+/* Yokogawa: a control-room photograph as the section's picture */
 .exp { align-items: start; }
-.exp__logo { width: 100%; height: 420px; border-radius: var(--r-lg); background: #0000a5 url(/yokogawa-mark.png) center / 200px no-repeat; }
+.exp__photo { width: 100%; height: 420px; }
 #experience .rows > li { padding-block: var(--s-5); }
 #experience .rows > li:first-child { padding-top: 0; }
 @media (max-width: 639px) { #experience .rows > li { padding-block: var(--s-4); } }
@@ -81,13 +95,13 @@
 
 /* the tablet stacks the splits: these sections take two screens there, and on a phone */
 @media (min-width: 640px) and (max-width: 1023px) {
-  .exp__logo { height: 200px; }
+  .exp__photo { height: 320px; }
   .stack-panel { --p-h: 260px; }
   .stack-groups { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 639px) {
   #more, #stack, #contact { --hm: 2; }
-  .exp__logo { height: 140px; background-size: 110px; }
+  .exp__photo { height: 200px; }
   #experience .rows > li { padding-block: var(--s-3); }
   .stack-panel { --p-h: 340px; }
   .stack-groups { grid-template-columns: 1fr; }

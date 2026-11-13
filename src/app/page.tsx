@@ -231,6 +231,11 @@ export default function Home() {
                   <a className="btn btn--primary" href={EMAIL}>Email me<Arrow /></a>
                   <a className="btn btn--secondary" href={RESUME}>Read my resume</a>
                 </div>
+                <dl className="hero__facts hero__facts--col">
+                  <div><dt>Degree</dt><dd>B.Tech Computer Science, VIT</dd></div>
+                  <div><dt>Internship</dt><dd>Yokogawa UAE, 2025</dd></div>
+                  <div><dt>Certified</dt><dd>AWS and Microsoft Azure</dd></div>
+                </dl>
               </div>
               <div className="hero__media span-6 start-7">
                 <img
@@ -317,9 +322,15 @@ export default function Home() {
           <div className="wrap">
             <p className="t-label">About</p>
             <p className="mo-wh__text">
-              B.Tech in Computer Science at VIT, CGPA 8.09. I write Java services with <strong>Spring Boot</strong>,
-              test them in Postman and ship them in Docker to AWS.
+              I like the part of a system <strong>nobody sees</strong>: the check that runs every 30 seconds,
+              the file link that dies on time, the price feed that reads five stores at once.
             </p>
+            <dl className="stats about-stats">
+              <div><dt>CGPA, B.Tech Computer Science</dt><dd className="t-stat">8.09</dd></div>
+              <div><dt>Vellore Institute of Technology</dt><dd className="t-stat">2022 to 2026</dd></div>
+              <div><dt>Grade 12, CBSE science</dt><dd className="t-stat">86.0%</dd></div>
+              <div><dt>Grade 10, CBSE</dt><dd className="t-stat">90.8%</dd></div>
+            </dl>
           </div>
         </section>
 
@@ -330,7 +341,22 @@ export default function Home() {
                 <h2 id="exp-h">
                   Intern at Yokogawa UAE. <span className="muted">Software engineering, May to June 2025.</span>
                 </h2>
-                <div className="exp__logo" role="img" aria-label="Yokogawa logo" data-visual=""></div>
+                {/* stand-in: a process control room until a photograph from the internship replaces it */}
+                <div className="frame frame--photo exp__photo" data-visual="">
+                  <img
+                    className="frame__img"
+                    src="/assets/img/photo-f186110784-960.jpg"
+                    srcSet="/assets/img/photo-f186110784-500.jpg 500w, /assets/img/photo-f186110784-960.jpg 960w"
+                    sizes="(max-width: 1023px) 100vw, 40vw"
+                    width={960}
+                    height={539}
+                    alt="An engineer at a desk of process screens in a plant control room"
+                    loading="lazy"
+                    decoding="async"
+                    data-source="stand-in"
+                    data-subject="control room"
+                  />
+                </div>
               </div>
               <ul className="rows span-6 start-7">
                 <li>
@@ -450,6 +476,7 @@ export default function Home() {
             </div>
             <div className="footer__legal">
               <span>&copy; 2026 Hirtic Selvavinayagam. Product names and logos are trademarks of their owners.</span>
+              <a href="https://commons.wikimedia.org/wiki/File:Engine_Control_Room_Harmony_of_the_Seas_2026.jpg">Control room photograph by Larry D. Moore, CC BY 4.0</a>
             </div>
           </div>
         </div>
