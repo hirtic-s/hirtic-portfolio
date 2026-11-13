@@ -1,89 +1,91 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
+import type { Metadata, Viewport } from "next";
+import { Schibsted_Grotesk } from "next/font/google";
+import Script from "next/script";
 
-const excon = localFont({
-  src: "./fonts/Excon-Variable.woff2",
-  variable: "--font-excon",
+const schibsted = Schibsted_Grotesk({
+  subsets: ["latin"],
+  weight: "variable",
   display: "swap",
-  adjustFontFallback: "Arial",
-});
-
-const okine = localFont({
-  src: [
-    { path: "./fonts/made-okine-sans/MADEOkineSansPERSONALUSE-Thin.otf", weight: "100", style: "normal" },
-    { path: "./fonts/made-okine-sans/MADEOkineSansPERSONALUSE-Light.otf", weight: "300", style: "normal" },
-    { path: "./fonts/made-okine-sans/MADEOkineSansPERSONALUSE-Regular.otf", weight: "400", style: "normal" },
-    { path: "./fonts/made-okine-sans/MADEOkineSansPERSONALUSE-Medium.otf", weight: "500", style: "normal" },
-    { path: "./fonts/made-okine-sans/MADEOkineSansPERSONALUSE-Bold.otf", weight: "700", style: "normal" },
-    { path: "./fonts/made-okine-sans/MADEOkineSansPERSONALUSE-Black.otf", weight: "900", style: "normal" },
-  ],
-  variable: "--font-okine",
-  display: "swap",
-  adjustFontFallback: "Arial",
+  variable: "--font-schibsted",
 });
 
 export const metadata: Metadata = {
-  title: "Hirtic Selvavinayagam | Software Engineer",
-  description: "Portfolio of Hirtic Selvavinayagam - Software Engineer specializing in robust backend architectures and predictive modeling.",
-  icons: {
-    icon: "/icon.png",
+  title: "Hirtic Selvavinayagam: Java and Spring Boot backend engineer",
+  description:
+    "New-grad backend engineer, VIT class of 2026. Spring Boot projects AvailAPI, Vanish Vault and GooDeals with public code, and an internship at Yokogawa UAE.",
+  openGraph: {
+    type: "website",
+    title: "Hirtic Selvavinayagam, Java backend engineer",
+    description: "Three shipped Spring Boot projects, live demos and public code.",
+    images: ["/share.jpg"],
   },
+  twitter: { card: "summary_large_image" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#18191b",
+};
+
+// Design kit (public/assets) deal: type service, palette graphite-safety-orange (dark, at the owner's ask), pairing schibsted, radius soft,
+// buttons arrow. Keep the :root block after the kit's stylesheets: system.css sets the defaults.
+const tokens = `
+:root {
+  --p-bg: #18191b; --p-surface: #222427; --p-ink: #eff0f1; --p-muted: #9c9ea3;
+  --p-accent: #ff4a1f; --p-accent-ink: #18191b; --p-action: #ff4a1f; --p-action-ink: #18191b;
+  --p-inv-bg: #eff0f1; --p-inv-surface: #dedfe0; --p-inv-ink: #18191b; --p-inv-muted: #5b5c5e;
+  --p-inv-accent: #18191b; --p-inv-accent-ink: #eff0f1; --p-inv-action: #18191b; --p-inv-action-ink: #eff0f1;
+  --font-display: var(--font-schibsted), "Schibsted Grotesk", system-ui, sans-serif;
+  --font-text: var(--font-schibsted), "Schibsted Grotesk", system-ui, sans-serif;
+  --display-weight: 400;
+  --display-tracking: -0.035em;
+  --display-tracking-xl: -0.042em;
+  --ly-scale: 0.98;
+}`;
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${excon.variable} ${okine.variable} dark scroll-smooth`}>
+    <html
+      lang="en"
+      className={schibsted.variable}
+      data-type="service"
+      data-radius="soft"
+      data-buttons="arrow"
+      data-motion=""
+      suppressHydrationWarning
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-      </head>
-      <body className="antialiased overflow-x-hidden font-body bg-black text-[#e5e1e4]">
-        {/* Instant CSS preloader — renders before JS hydrates, eliminates black flash */}
-        <div
-          id="css-preloader"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: '#000000',
-            zIndex: 10000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            animation: 'css-preloader-fade 0.5s ease-in-out 1.4s forwards',
-            pointerEvents: 'none',
+        <meta name="site-kind" content="other" />
+        <meta name="page-type" content="service" />
+        <link rel="stylesheet" href="/assets/system.css" />
+        <link rel="stylesheet" href="/assets/ui/cards.css" />
+        <link rel="stylesheet" href="/assets/motion/motion.css" />
+        <link rel="stylesheet" href="/assets/layout/layout.css" />
+        <link rel="stylesheet" href="/assets/icons/icon.css" />
+        <link rel="stylesheet" href="/assets/diagrams/diagram.css" />
+        <style dangerouslySetInnerHTML={{ __html: tokens }} />
+        <link rel="stylesheet" href="/assets/site.css" />
+        {/* the hero's entrance and the moment guard, set before the first paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700);" +
+              "document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)",
           }}
-        >
-          <style>{`
-            @keyframes css-preloader-fade {
-              to { opacity: 0; visibility: hidden; }
-            }
-            @keyframes css-dot-pulse {
-              0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
-              40% { transform: scale(1); opacity: 1; }
-            }
-          `}</style>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  background: '#10b981',
-                  animation: `css-dot-pulse 1.2s ease-in-out ${i * 0.2}s infinite`,
-                }}
-              />
-            ))}
-          </div>
-        </div>
+        />
+        <link rel="modulepreload" href="/assets/moments/moments.js" />
+        <link rel="modulepreload" href="/assets/moments/lib.js" />
+        <link rel="modulepreload" href="/assets/moments/word-highlight/moment.js" />
+      </head>
+      <body className="ic-dark" suppressHydrationWarning>
         {children}
+        {/* the kit's scripts run after hydration so they never fight React over the DOM */}
+        <Script type="module" src="/assets/system.js" strategy="afterInteractive" />
+        <Script type="module" src="/assets/motion/motion.js" strategy="afterInteractive" />
+        <Script type="module" src="/assets/layout/layout.js" strategy="afterInteractive" />
+        <Script type="module" src="/assets/diagrams/mount.js" strategy="afterInteractive" />
       </body>
     </html>
   );

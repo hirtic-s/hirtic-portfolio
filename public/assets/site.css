@@ -1,0 +1,99 @@
+/* Page CSS: only what sits inside a visual, one --p-h per card group, and the few page parts the kit lacks. */
+
+/* AvailAPI: head row over the app window across the wrap */
+#projects .proj-head { align-items: start; margin-bottom: var(--s-7); }
+.proj-links { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-6); }
+.proj-links .link { display: inline-flex; align-items: center; min-height: 44px; }
+
+.aw-frame { height: 456px; border-radius: var(--r-lg); overflow: hidden; background: #0d0f12; box-shadow: 0 0 0 1px var(--line); }
+.aw { --aw-line: #23262c; --aw-dim: #8a9099; height: 100%; display: flex; flex-direction: column;
+  color: #e7e9ec; font: 400 14px/1.4 var(--font-text); background: #0d0f12; }
+.aw__bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px;
+  border-bottom: 1px solid var(--aw-line); }
+.aw__brand { font-weight: 500; font-size: 15px; }
+.aw__nav { color: var(--aw-dim); }
+.aw__body { flex: 1; min-height: 0; display: grid; grid-template-columns: 200px 1fr 260px; }
+.aw__side, .aw__over { padding: 16px 20px; }
+.aw__side { border-right: 1px solid var(--aw-line); }
+.aw__over { border-left: 1px solid var(--aw-line); }
+.aw__main { padding: 16px 20px; overflow: hidden; }
+.aw__label { color: var(--aw-dim); font-size: 13px; font-weight: 500; margin: 0 0 12px; }
+.aw__over .aw__label + .aw__err, .aw__stat + .aw__label { margin-top: 0; }
+.aw__stat + .aw__label { margin-top: 20px; }
+.aw__ep { display: flex; gap: 10px; align-items: baseline; padding: 6px 0; }
+.aw__ep small { display: block; color: var(--aw-dim); font-size: 13px; }
+.aw__dot { width: 7px; height: 7px; border-radius: 50%; background: #3fbf6a; flex: none; transform: translateY(-1px); }
+.aw__table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.aw__table th:nth-child(1) { width: 26%; } .aw__table th:nth-child(2) { width: 30%; } .aw__table th:nth-child(3) { width: 20%; }
+.aw__table th { text-align: left; color: var(--aw-dim); font-weight: 500; font-size: 13px; padding: 0 0 8px; }
+.aw__table td { padding: 7px 0; border-top: 1px solid var(--aw-line); }
+.aw__mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: #9fe0b4; }
+.aw__time { color: var(--aw-dim); }
+.aw__up, .aw__warn { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 13px; font-weight: 500; }
+.aw__up { color: #7ee2a0; background: #13301f; }
+.aw__warn { color: #f0c46a; background: #3a2d10; }
+.aw__stat { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 14px;
+  border: 1px solid var(--aw-line); border-radius: 10px; margin-bottom: 10px; color: var(--aw-dim); }
+.aw__stat b { color: #e7e9ec; font-weight: 500; font-size: 20px; }
+.aw__err { display: flex; gap: 8px; align-items: center; }
+
+@media (max-width: 1023px) {
+  .aw__body { grid-template-columns: 1fr 220px; }
+  .aw__side { display: none; }
+}
+@media (max-width: 639px) {
+  #projects .proj-head { margin-bottom: var(--s-6); }
+  .aw-frame { height: 300px; }
+  .aw__body { grid-template-columns: 1fr; }
+  .aw__over { display: none; }
+  .aw__table th:nth-child(4), .aw__table td:nth-child(4) { display: none; }
+}
+
+/* Vanish Vault and GooDeals: one panel height for the pair */
+#more .panel { --p-h: 300px; }
+#more .panel .frame__img { object-fit: cover; object-position: 50% 0; }
+#more .ic-chip-row { margin-top: var(--s-4); }
+#more .proj-links { margin-top: var(--s-2); }
+@media (max-width: 639px) { #more .panel { --p-h: 180px; } }
+
+/* Yokogawa: the logo on its own blue as the section's picture */
+.exp { align-items: start; }
+.exp__logo { width: 100%; height: 420px; border-radius: var(--r-lg); background: #0000a5 url(/yokogawa-mark.png) center / 200px no-repeat; }
+#experience .rows > li { padding-block: var(--s-5); }
+#experience .rows > li:first-child { padding-top: 0; }
+@media (max-width: 639px) { #experience .rows > li { padding-block: var(--s-4); } }
+
+/* Stack: tool lists beside the hub diagram, then the two certificates */
+/* the inner columns share the page gutter, so they sit on page columns 1 and 4 */
+.stack-groups { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6) var(--s-5); align-content: start; }
+.stack-list { list-style: none; margin: var(--s-3) 0 0; padding: 0; }
+.stack-list li { display: flex; align-items: center; gap: var(--s-3); padding: 4px 0; font-size: var(--t-body); }
+/* logos sit on a small light tile so dark marks (AWS, Next.js, GitHub) read on the dark ground */
+.stack-list .ic { box-sizing: content-box; width: 20px; height: 20px; padding: 4px; object-fit: contain; background: var(--p-ink); border-radius: 6px; }
+.stack-panel { --p-h: 368px; --ground-bg: var(--surface); height: var(--p-h); border-radius: var(--r-lg); box-shadow: inset 0 0 0 1px var(--line); }
+.certs { margin-top: var(--s-6); }
+.card.cert { display: flex; flex-direction: row; justify-content: flex-start; text-align: left; align-items: center; gap: var(--s-5); text-decoration: none; color: inherit; }
+.cert .ic { box-sizing: content-box; width: 40px; height: 40px; padding: 8px; object-fit: contain; flex: none; background: var(--p-ink); border-radius: var(--r-md); }
+.cert__name { display: block; font-size: var(--t-card); font-weight: 500; }
+.cert__link { display: block; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; margin-top: var(--s-1); }
+@media (max-width: 1023px) { .stack-panel { --p-h: 340px; } }
+@media (max-width: 639px) { .stack-panel { --p-h: 280px; } }
+
+/* the tablet stacks the splits: these sections take two screens there, and on a phone */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .exp__logo { height: 200px; }
+  .stack-panel { --p-h: 260px; }
+  .stack-groups { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 639px) {
+  #more, #stack, #contact { --hm: 2; }
+  .exp__logo { height: 140px; background-size: 110px; }
+  #experience .rows > li { padding-block: var(--s-3); }
+  .stack-panel { --p-h: 340px; }
+  .stack-groups { grid-template-columns: 1fr; }
+  .stack-list li { padding: 2px 0; }
+  .ic-chip-row > .ic-chip { flex: 1 1 auto; justify-content: center; }
+}
+
+/* on a phone the float card would sit on the face: the portrait shows alone */
+@media (max-width: 639px) { .hero__media .ly-float { display: none; } }

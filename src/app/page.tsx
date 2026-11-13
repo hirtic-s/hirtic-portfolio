@@ -1,778 +1,463 @@
-"use client";
+/* eslint-disable @next/next/no-img-element -- the kit's frames size and crop plain <img> elements */
 
-import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import StackIcon from "tech-stack-icons";
-import CodeMascot from "@/components/CodeMascot";
+/*
+  type: service (a person who is hired)
+  deal: hero split, nav nav-centre, close close-type, footer footer-columns, rhythm surface-pairs,
+        buttons arrow, mark ring, palette graphite-safety-orange, pairing schibsted
+  moments: word-highlight in #about
+*/
+
+const EMAIL = "mailto:hirtic2004@gmail.com";
+const RESUME = "https://drive.google.com/file/d/1G1wTw3AlolQoNWvG2wbgmdSQIbRSGrLB/view?usp=sharing";
+const GITHUB = "https://github.com/hirtic-s";
+const LINKEDIN = "https://www.linkedin.com/in/hirtic-s";
+
+type Tool = { icon: string; name: string; ink?: boolean };
+
+const tools: Record<string, Tool> = {
+  java: { icon: "java", name: "Java" },
+  spring: { icon: "spring", name: "Spring Boot" },
+  postgres: { icon: "postgres", name: "PostgreSQL" },
+  angular: { icon: "angular", name: "Angular" },
+  docker: { icon: "docker", name: "Docker" },
+  react: { icon: "react", name: "React" },
+  aws: { icon: "aws", name: "AWS S3" },
+  gemini: { icon: "gemini", name: "Gemini" },
+};
+
+function Chips({ ids }: { ids: string[] }) {
+  return (
+    <ul className="ic-chip-row" aria-label="Built with">
+      {ids.map((id) => {
+        const t = tools[id];
+        return (
+          <li key={id} className="ic-chip">
+            <img className="ic" data-icon={t.icon} src={`/assets/icons/${t.icon}.svg`} alt="" width={18} height={18} loading="lazy" />
+            {t.name}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function Arrow() {
+  return (
+    <svg className="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
+      <path className="m-arrow__stem" d="M1 6h8" />
+      <path className="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
+    </svg>
+  );
+}
+
+// AvailAPI's dashboard, set in HTML from the live app's own data so it stays sharp at any width
+const checks = [
+  ["UP", "hirtic", "99 ms", "06:04:30"],
+  ["UP", "linkedin", "103 ms", "06:04:15"],
+  ["UP", "youtube", "12 ms", "06:04:15"],
+  ["UP", "hirtic", "94 ms", "06:04:00"],
+  ["UP", "youtube", "88 ms", "06:03:45"],
+  ["UP", "linkedin", "8 ms", "06:03:45"],
+  ["UP", "youtube", "1,393 ms", "06:02:17"],
+  ["TIMEOUT", "hirtic", "98 ms", "06:01:05"],
+  ["UP", "hirtic", "7 ms", "06:00:30"],
+];
+
+function AvailWindow() {
+  return (
+    <div className="aw" data-ui="" role="img" aria-label="AvailAPI dashboard: three endpoints checked every 30 seconds, 99.1% uptime over 24 hours, one timeout in the recent errors">
+      <div className="aw__bar">
+        <span className="aw__brand">AvailAPI</span>
+        <span className="aw__nav">Status page</span>
+      </div>
+      <div className="aw__body">
+        <aside className="aw__side">
+          <p className="aw__label">Endpoints</p>
+          {["hirtic", "youtube", "linkedin"].map((e) => (
+            <div key={e} className="aw__ep">
+              <span className="aw__dot" />
+              <span>
+                {e}
+                <small>every 30 s</small>
+              </span>
+            </div>
+          ))}
+        </aside>
+        <div className="aw__main">
+          <p className="aw__label">Recent health checks</p>
+          <table className="aw__table">
+            <thead>
+              <tr><th>Status</th><th>Endpoint</th><th>Latency</th><th>Time</th></tr>
+            </thead>
+            <tbody>
+              {checks.map(([s, e, l, t], i) => (
+                <tr key={i}>
+                  <td><span className={s === "UP" ? "aw__up" : "aw__warn"}>{s}</span></td>
+                  <td>{e}</td>
+                  <td className="aw__mono">{l}</td>
+                  <td className="aw__mono aw__time">{t}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <aside className="aw__over">
+          <p className="aw__label">System overview</p>
+          <div className="aw__stat"><span>Uptime, 24 h</span><b>99.1%</b></div>
+          <div className="aw__stat"><span>Active endpoints</span><b>3</b></div>
+          <p className="aw__label">Recent errors</p>
+          <div className="aw__err"><span className="aw__warn">TIMEOUT</span> hirtic</div>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
+// the one still diagram (service page): a Spring Boot service and the tools around it
+const hub = {
+  layout: "hub",
+  alt: "A Spring Boot service with PostgreSQL for data, Docker for packaging, AWS for hosting, Postman for API tests, GitHub for code and React for the client.",
+  ground: "none",
+  motion: { pulse: "none" },
+  center: { label: "Spring Boot", icon: "spring" },
+  spokes: [
+    { label: "PostgreSQL", icon: "postgres" },
+    { label: "Docker", icon: "docker" },
+    { label: "AWS", icon: "aws" },
+    { label: "Postman", icon: "postman" },
+    { label: "GitHub", icon: "github" },
+    { label: "React", icon: "react" },
+  ],
+};
+
+const stack: { group: string; items: Tool[] }[] = [
+  {
+    group: "Backend",
+    items: [
+      { icon: "java", name: "Java" },
+      { icon: "spring", name: "Spring Boot" },
+      { icon: "postgres", name: "PostgreSQL" },
+      { icon: "nodejs", name: "Node.js" },
+      { icon: "flask", name: "Flask" },
+    ],
+  },
+  {
+    group: "Cloud and delivery",
+    items: [
+      { icon: "docker", name: "Docker" },
+      { icon: "aws", name: "AWS" },
+      { icon: "azure", name: "Azure" },
+      { icon: "git", name: "Git" },
+      { icon: "github", name: "GitHub" },
+    ],
+  },
+  {
+    group: "Frontend",
+    items: [
+      { icon: "react", name: "React" },
+      { icon: "angular", name: "Angular" },
+      { icon: "nextjs", name: "Next.js" },
+    ],
+  },
+  {
+    group: "Testing and data",
+    items: [
+      { icon: "postman", name: "Postman" },
+      { icon: "python", name: "Python" },
+    ],
+  },
+];
 
 export default function Home() {
-    const [isLoaded, setIsLoaded] = useState(false);
-    const hudRef = useRef<HTMLDivElement>(null);
-    const ringOuterRef = useRef<SVGCircleElement>(null);
-    const ringMiddleRef = useRef<SVGCircleElement>(null);
-    const ringInnerRef = useRef<SVGCircleElement>(null);
-    const isScrollingRef = useRef(false);
-
-    const [loadingStep, setLoadingStep] = useState(0);
-    const loadingMessages = [
-        "Initializing portfolio...",
-        "Assembling creative components...",
-        "Unveiling digital canvas..."
-    ];
-
-    useEffect(() => {
-        const timer1 = setTimeout(() => setLoadingStep(1), 400);
-        const timer2 = setTimeout(() => setLoadingStep(2), 900);
-        const timer3 = setTimeout(() => setIsLoaded(true), 1500);
-
-        // Ensure we wait for at least some initial loading
-        const handleLoad = () => {
-            // Optional: speed up if everything is already loaded
-        };
-
-        window.addEventListener('load', handleLoad);
-        return () => {
-            clearTimeout(timer1);
-            clearTimeout(timer2);
-            clearTimeout(timer3);
-            window.removeEventListener('load', handleLoad);
-        };
-    }, []);
-
-    useEffect(() => {
-        // High-Performance Nav Tracking with Precise Center-Needle Observer
-        const sections = document.querySelectorAll('#home, #about, #education, #skills, #experience, #projects, #certifications');
-        const navLinks = document.querySelectorAll('nav a');
-
-        const updateNav = (activeId: string | null) => {
-            navLinks.forEach(link => {
-                const href = link.getAttribute('href')?.substring(1) || '';
-                // Handle home section (# -> empty string) mapping to id="home"
-                const isActive = (activeId === href) || (activeId === 'home' && href === '');
-
-                if (isActive) {
-                    link.classList.add('nav-active');
-                    link.classList.remove('text-[#e5e1e4]/60');
-                } else {
-                    link.classList.remove('nav-active');
-                    link.classList.add('text-[#e5e1e4]/60');
-                }
-            });
-        };
-
-        const observerOptions = {
-            rootMargin: "-20% 0px -40% 0px", // Focus on the upper-middle part of the screen
-            threshold: 0
-        };
-
-        const observerCallback = (entries: IntersectionObserverEntry[]) => {
-            if (isScrollingRef.current) return;
-
-            // Find the first intersecting entry (typically the top-most one in the trigger zone)
-            const activeEntry = entries.find(entry => entry.isIntersecting);
-            if (activeEntry) {
-                updateNav(activeEntry.target.id);
-            }
-        };
-
-        const observer = new IntersectionObserver(observerCallback, observerOptions);
-        sections.forEach(section => observer.observe(section));
-
-        let lastClickTime = 0;
-
-        const nav = document.querySelector('nav');
-
-        // Instant click feedback with center-aligned scrolling
-        const handleNavClick = (e: MouseEvent) => {
-            const target = (e.target as HTMLElement).closest('a');
-            if (target) {
-                const href = target.getAttribute('href');
-                if (href?.startsWith('#')) {
-                    e.preventDefault();
-                    isScrollingRef.current = true;
-                    lastClickTime = Date.now();
-                    const sectionId = href.substring(1) || 'home';
-
-                    const element = document.getElementById(sectionId === '' ? 'home' : sectionId);
-
-                    // Revert behavior specifically for Skills and Projects
-                    const forceTopAligned = ['skills', 'projects'];
-
-                    if (sectionId === 'home' || sectionId === '') {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    } else if (forceTopAligned.includes(sectionId)) {
-                        let offset = 0;
-                        if (sectionId === 'skills') offset = 70;
-                        if (sectionId === 'projects') offset = 90; // Aligns "Projects" title just below header
-
-                        const elementPosition = element ? element.getBoundingClientRect().top + window.pageYOffset : 0;
-                        window.scrollTo({
-                            top: elementPosition - offset,
-                            behavior: 'smooth'
-                        });
-                    } else if (element) {
-                        const windowHeight = window.innerHeight;
-                        const elementHeight = element.offsetHeight;
-
-                        // If element is smaller than viewport, center it
-                        // Otherwise, scroll to top with safe margin for fixed header
-                        if (elementHeight < windowHeight * 0.7) {
-                            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        } else {
-                            const offset = 100; // Consistent margin below fixed header
-                            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-                            window.scrollTo({
-                                top: elementPosition - offset,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
-
-                    updateNav(sectionId === '' ? 'home' : sectionId);
-
-                    // Add switching class to suppress "phantom" transitions
-                    nav?.classList.add('nav-switching');
-                    setTimeout(() => nav?.classList.remove('nav-switching'), 500);
-
-                    // Fallback: Reset the scroll lock once the smooth scroll is likely finished
-                    setTimeout(() => {
-                        isScrollingRef.current = false;
-                    }, 1000);
-                }
-            }
-        };
-
-        // Scroll-to-bottom detection (for short final sections)
-        const handleScroll = () => {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
-                if (!isScrollingRef.current) updateNav('certifications');
-            }
-        };
-
-        // Reset the scroll lock once the programmatic scroll finishes
-        const handleScrollEnd = () => {
-            // Ignore scrollend if it fires almost immediately after a click (prevents premature unlocking)
-            if (Date.now() - lastClickTime < 100) return;
-            isScrollingRef.current = false;
-        };
-
-        nav?.addEventListener('click', handleNavClick);
-        window.addEventListener('scroll', handleScroll);
-        window.addEventListener('scrollend', handleScrollEnd);
-
-        // Intersection Observer for modern highlights - existing logic
-        const highlightObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const highlighters = entry.target.querySelectorAll('.modern-highlighter');
-                if (entry.isIntersecting) {
-                    highlighters.forEach(el => {
-                        el.classList.remove('is-visible');
-                        void (el as HTMLElement).offsetWidth;
-                        el.classList.add('is-visible');
-                    });
-                } else {
-                    highlighters.forEach(el => el.classList.remove('is-visible'));
-                }
-            });
-        }, { threshold: 0.3 });
-
-        document.querySelectorAll('section, .section-bg').forEach(sec => {
-            if (sec.querySelector('.modern-highlighter')) highlightObserver.observe(sec);
-        });
-
-        return () => {
-            observer.disconnect();
-            highlightObserver.disconnect();
-            nav?.removeEventListener('click', handleNavClick);
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('scrollend', handleScrollEnd);
-        };
-    }, []);
-
-    // Bulletproof HUD Animation Loop (Direct Refs)
-    const isHoveringRef = useRef(false);
-
-    useEffect(() => {
-        let rotationOuter = 0, rotationMiddle = 0, rotationInner = 0;
-        let currentSpeedOuter = 0.015, currentSpeedMiddle = -0.02, currentSpeedInner = 0.035;
-        let animationFrameId: number;
-
-        const hudElement = hudRef.current;
-        if (hudElement) {
-            const handleMouseEnter = () => { isHoveringRef.current = true; };
-            const handleMouseLeave = () => { isHoveringRef.current = false; };
-            hudElement.addEventListener('mouseenter', handleMouseEnter);
-            hudElement.addEventListener('mouseleave', handleMouseLeave);
-        }
-
-        let lastTime = performance.now();
-
-        const animate = (now: number) => {
-            const delta = (now - lastTime) / 16.667; // normalize to ~60fps
-            lastTime = now;
-
-            const lerp = (start: number, end: number, t: number) => start + (end - start) * t;
-            const t = 0.04 * delta;
-            const isHovering = isHoveringRef.current;
-
-            const targetOuter = isHovering ? 0.08 : 0.015;
-            const targetMiddle = isHovering ? -0.12 : -0.02;
-            const targetInner = isHovering ? 0.18 : 0.035;
-
-            currentSpeedOuter = lerp(currentSpeedOuter, targetOuter, Math.min(t, 1));
-            currentSpeedMiddle = lerp(currentSpeedMiddle, targetMiddle, Math.min(t, 1));
-            currentSpeedInner = lerp(currentSpeedInner, targetInner, Math.min(t, 1));
-
-            rotationOuter += currentSpeedOuter * delta;
-            rotationMiddle += currentSpeedMiddle * delta;
-            rotationInner += currentSpeedInner * delta;
-
-            // Direct attribute manipulation (Bulletproof)
-            if (ringOuterRef.current) ringOuterRef.current.setAttribute('transform', `rotate(${rotationOuter} 100 100)`);
-            if (ringMiddleRef.current) ringMiddleRef.current.setAttribute('transform', `rotate(${rotationMiddle} 100 100)`);
-            if (ringInnerRef.current) ringInnerRef.current.setAttribute('transform', `rotate(${rotationInner} 100 100)`);
-
-            animationFrameId = requestAnimationFrame(animate);
-        };
-
-        animationFrameId = requestAnimationFrame(animate);
-
-        return () => {
-            const hudElement = hudRef.current;
-            if (hudElement) {
-                // We use a separate cleanup for clarity
-                hudElement.removeEventListener('mouseenter', () => { });
-                hudElement.removeEventListener('mouseleave', () => { });
-            }
-            cancelAnimationFrame(animationFrameId);
-        };
-    }, []);
-
-
-
-
-
-    return (
-        <>
-            <AnimatePresence>
-                {!isLoaded && (
-                    <motion.div
-                        className="preloader"
-                        initial={{ opacity: 1 }}
-                        exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
-                    >
-                        <div className="flex flex-col gap-6 max-w-sm w-full px-8">
-                            {loadingMessages.map((msg, idx) => (
-                                <motion.div
-                                    key={msg}
-                                    className="flex items-center gap-4"
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{
-                                        opacity: loadingStep >= idx ? 1 : 0.3,
-                                        x: 0,
-                                        transition: { delay: idx * 0.1 }
-                                    }}
-                                >
-                                    <div className={`relative flex items-center justify-center w-6 h-6 rounded-full border transition-all duration-500 ${loadingStep >= idx
-                                        ? idx === 2 && loadingStep === 2
-                                            ? "border-[#10b981] bg-transparent"
-                                            : "bg-[#1d1d1f] border-white/10"
-                                        : "border-white/10"
-                                        }`}>
-                                        {loadingStep >= idx ? (
-                                            <motion.span
-                                                className={`flex items-center justify-center ${loadingStep > idx ? "text-[#10b981]" : "text-white/40"}`}
-                                                initial={{ scale: 0 }}
-                                                animate={{ scale: 1 }}
-                                            >
-                                                {loadingStep > idx ? (
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5-4.5-4.5 1.41-1.41L10 13.67l7.09-7.09 1.41 1.41L10 16.5z"/></svg>
-                                                ) : idx === loadingStep ? (
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
-                                                ) : (
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-                                                )}
-                                            </motion.span>
-                                        ) : (
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.1)"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-                                        )}
-                                    </div>
-                                    <span className={`text-sm font-medium tracking-tight transition-all duration-500 ${loadingStep > idx
-                                        ? "text-[#e5e1e4]/40"
-                                        : loadingStep === idx
-                                            ? "text-[#10b981]"
-                                            : "text-[#e5e1e4]/20"
-                                        }`}>
-                                        {msg}
-                                    </span>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
-            {/* Top Navigation Bar - Outside animation to stay fixed */}
-            <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-xl px-8 py-4 flex justify-between items-center w-full max-w-7xl mx-auto">
-                <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-green-500 text-sm animate-pulse" style={{ fontVariationSettings: "'FILL' 1" }}>fiber_manual_record</span>
-                    <span className="font-label text-xs uppercase tracking-widest text-[#e5e1e4]">Open to work</span>
+  return (
+    <>
+      <header className="nav nav--centre">
+        <div className="wrap nav__bar">
+          <a className="skip-link" href="#top">Skip to content</a>
+          <a className="nav__logo" href="#top">
+            <span className="mark" data-mark="ring" aria-hidden="true"></span>Hirtic Selvavinayagam
+          </a>
+          <nav className="nav__links" aria-label="Main">
+            <div className="nav__item">
+              <a className="nav__link" href="#projects">
+                Projects{" "}
+                <svg className="chev" viewBox="0 0 12 12" aria-hidden="true">
+                  <path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+              <div className="nav__menu">
+                <div className="wrap grid">
+                  <div className="menu-col span-4">
+                    <p className="t-label">Projects</p>
+                    <a href="#projects">AvailAPI<span>Uptime checks for REST endpoints</span></a>
+                    <a href="#more">Vanish Vault<span>Files that delete themselves</span></a>
+                    <a href="#more">GooDeals<span>Price comparison with Gemini</span></a>
+                  </div>
+                  <div className="menu-col span-4 start-7">
+                    <p className="t-label">Code</p>
+                    <a href={GITHUB}>GitHub<span>Every repository, public</span></a>
+                  </div>
                 </div>
+              </div>
+            </div>
+            <div className="nav__item"><a className="nav__link" href="#experience">Experience</a></div>
+            <div className="nav__item"><a className="nav__link" href="#stack">Stack</a></div>
+            <div className="nav__item"><a className="nav__link" href="#about">About</a></div>
+          </nav>
+          <div className="nav__actions">
+            <a className="nav__link" href={RESUME}>Resume</a>
+            <a className="btn btn--primary" href={EMAIL}>Email me</a>
+          </div>
+          <button className="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+              <path d="M2 5h14M2 13h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+      </header>
 
-                <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-4 border-r border-white/10 pr-6">
-                        <a href="https://github.com/hirtic-s" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#10b981] transition-all duration-300">
-                            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-                            </svg>
-                        </a>
-                        <a href="https://www.linkedin.com/in/hirtic-s" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#10b981] transition-all duration-300">
-                            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                            </svg>
-                        </a>
-                    </div>
-
-                    <a
-                        href="https://drive.google.com/file/d/1G1wTw3AlolQoNWvG2wbgmdSQIbRSGrLB/view?usp=sharing"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-[#10b981] text-[#000000] font-label font-bold px-6 py-2 rounded-full text-sm hover:scale-95 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300"
-                    >
-                        Resume
-                    </a>
+      <main id="top">
+        <section className="hero hero--split" data-enter="" aria-labelledby="hero-h">
+          <div className="wrap">
+            <div className="hero-text grid hero__grid">
+              <div className="hero__text span-5">
+                <p className="hero__kicker"><span className="dot" aria-hidden="true"></span>Hirtic Selvavinayagam, VIT class of 2026</p>
+                <h1 id="hero-h">Java and Spring Boot backend engineer</h1>
+                <p className="hero__lead">
+                  I build REST APIs with Spring Boot, keep the data in PostgreSQL and ship it in Docker.
+                  Three projects with public code, open to new-grad backend roles.
+                </p>
+                <div className="btn-row">
+                  <a className="btn btn--primary" href={EMAIL}>Email me<Arrow /></a>
+                  <a className="btn btn--secondary" href={RESUME}>Read my resume</a>
                 </div>
-            </header>
-
-            {/* Background Decorative Glows - Outside animation for fixed stability */}
-            <div className="fixed top-0 left-1/4 w-[800px] h-[800px] radial-glow -z-10 pointer-events-none"></div>
-            <div className="fixed bottom-0 right-1/4 w-[600px] h-[600px] radial-glow -z-10 pointer-events-none"></div>
-
-            <div className={isLoaded ? 'reveal-content' : 'opacity-0'}>
-
-                <main className="relative pt-20 pb-40">
-
-                    {/* Hero Section */}
-                    <div className="section-bg w-full">
-                        <section className="max-w-7xl mx-auto px-8 mb-32 min-h-[calc(100vh-8rem)] flex items-start pt-4 scroll-mt-40" id="home">
-                            <div className="flex flex-col md:flex-row items-center w-full">
-                                <div className="max-w-2xl">
-                                    <CodeMascot />
-                                    <span className="text-tertiary font-label text-sm uppercase tracking-[0.3em] block mb-4">Software Engineer</span>
-                                    <h1 className="text-7xl font-headline font-extrabold text-[#e5e1e4] leading-tight tracking-tight mb-8">Hirtic <br /> <span className="text-gradient">Selvavinayagam</span></h1>
-                                    <p className="text-on-surface-variant text-lg leading-relaxed font-body max-w-lg">
-                                        Specializing in robust <span className="modern-highlighter">backend architectures</span> and predictive modeling to build secure, scalable, and intelligent <span className="modern-highlighter">software ecosystems</span>.
-                                    </p>
-                                </div>
-                                <div className="flex flex-1 justify-center items-center mt-12 md:mt-0">
-                                    <div ref={hudRef} className="hud-frame-container relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center">
-                                        <svg className="hud-svg absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 200 200">
-                                            <circle ref={ringOuterRef} className="hud-ring hud-ring-outer" cx="100" cy="100" r="95" strokeDasharray="160 140" />
-                                            <circle ref={ringMiddleRef} className="hud-ring hud-ring-middle" cx="100" cy="100" r="88" strokeDasharray="80 120" />
-                                            <circle ref={ringInnerRef} className="hud-ring hud-ring-inner" cx="100" cy="100" r="82" strokeDasharray="2 10" />
-                                        </svg>
-                                        <div className="hud-inner-content relative flex items-center justify-center shadow-[0_0_80px_rgba(0,0,0,0.8)]">
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img
-                                                className="w-full h-full object-cover object-top"
-                                                src="/hirtic.png"
-                                                alt="Janane Selvavinayagam"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-
-                    {/* About Me Section */}
-                    <div className="section-bg-2 w-full mb-32 py-16" id="about">
-                        <section className="max-w-7xl mx-auto px-8 scroll-mt-32">
-                            <div className="flex flex-col md:flex-row gap-16">
-                                <div className="md:w-1/3">
-                                    <h2 className="text-4xl font-headline font-bold text-[#e5e1e4]">About Me</h2>
-                                    <p className="text-on-surface-variant mt-4 font-body italic border-l-2 border-[#10b981]/30 pl-4">"Building the digital future, one robust architecture at a time."</p>
-                                </div>
-                                <div className="md:w-2/3">
-                                    <div className="glass-card p-10 space-y-8">
-                                        <p className="text-lg leading-relaxed text-on-surface-variant font-body">
-                                            I am a results-driven <span className="modern-highlighter">Software Engineer</span> with a passion for architecting scalable backend systems and developing predictive AI models. My journey started with a curiosity for how complex digital infrastructures interact, which led me to pursue a B.Tech in Computer Science at <span className="modern-highlighter">Vellore Institute of Technology</span>.
-                                        </p>
-                                        <p className="text-lg leading-relaxed text-on-surface-variant font-body">
-                                            I pride myself on my ability to translate complex technical requirements into elegant, high-performance solutions. Whether it's optimizing database queries, containerizing microservices, or training deep learning models, I approach every project with a focus on <span className="modern-highlighter">reliability</span>, <span className="modern-highlighter">security</span>, and <span className="modern-highlighter">user-centric design</span>.
-                                        </p>
-                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
-                                            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
-                                                <span className="material-symbols-outlined text-[#10b981] mb-2">dns</span>
-                                                <h4 className="text-xs font-label uppercase tracking-widest text-white">Architecture</h4>
-                                            </div>
-                                            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
-                                                <span className="material-symbols-outlined text-[#10b981] mb-2">model_training</span>
-                                                <h4 className="text-xs font-label uppercase tracking-widest text-white">AI / ML</h4>
-                                            </div>
-                                            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
-                                                <span className="material-symbols-outlined text-[#10b981] mb-2">speed</span>
-                                                <h4 className="text-xs font-label uppercase tracking-widest text-white">Scalability</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-
-                    {/* Education Section */}
-                    <div className="section-bg-3 w-full mb-32 py-16" id="education">
-                        <section className="max-w-7xl mx-auto px-8 scroll-mt-32">
-                            <div className="flex flex-col md:flex-row gap-16">
-                                <div className="md:w-1/3">
-                                    <h2 className="text-4xl font-headline font-bold text-[#e5e1e4]">Education</h2>
-                                    <p className="text-on-surface-variant mt-4 font-body">Academic milestones and foundational growth.</p>
-                                </div>
-                                <div className="md:w-2/3 space-y-8 relative before:absolute before:left-0 before:top-4 before:bottom-4 before:w-[1px] before:bg-outline-variant/20">
-                                    <div className="relative pl-8">
-                                        <div className="absolute left-[-5px] top-6 w-[10px] h-[10px] rounded-full bg-primary shadow-[0_0_10px_#cdbdff]"></div>
-                                        <div className="glass-card p-8 hover:bg-white/5 transition-all">
-                                            <span className="text-tertiary font-label text-xs uppercase mb-2 block">Sept 2022 — expected 2026</span>
-                                            <h3 className="text-2xl font-headline font-bold text-[#10b981] mb-2">Vellore Institute of Technology</h3>
-                                            <p className="text-primary text-sm font-label mb-4">B.Tech in Computer Science Engineering</p>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                                                <div className="bg-surface-container-low p-4 rounded-xl">
-                                                    <p className="text-xs text-on-surface-variant uppercase mb-1">CGPA</p>
-                                                    <p className="text-lg font-bold text-primary">8.09/10</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="relative pl-8">
-                                        <div className="absolute left-[-5px] top-6 w-[10px] h-[10px] rounded-full bg-outline-variant"></div>
-                                        <div className="glass-card p-8 hover:bg-white/5 transition-all">
-                                            <span className="text-tertiary font-label text-xs uppercase mb-2 block">Sept 2010 — May 2022</span>
-                                            <h3 className="text-2xl font-headline font-bold text-[#10b981] mb-2">Asian International Private School</h3>
-                                            <p className="text-primary text-sm font-label mb-4">CBSE - Science Stream (PCM)</p>
-                                            <div className="grid grid-cols-2 gap-4 mt-4">
-                                                <div className="bg-surface-container-low p-4 rounded-xl">
-                                                    <p className="text-xs text-on-surface-variant uppercase mb-1">Grade 12</p>
-                                                    <p className="text-lg font-bold text-primary">86.0%</p>
-                                                </div>
-                                                <div className="bg-surface-container-low p-4 rounded-xl">
-                                                    <p className="text-xs text-on-surface-variant uppercase mb-1">Grade 10</p>
-                                                    <p className="text-lg font-bold text-primary">90.8%</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-
-                    {/* Technology Stack Banner Section */}
-                    <section className="relative w-full mb-32 overflow-hidden py-24 scroll-mt-40 section-bg-4" id="skills">
-                        <div className="nature-overlay"></div>
-                        <div className="max-w-7xl mx-auto px-8 mb-12 relative z-10">
-                            <h2 className="text-4xl font-headline font-bold text-[#e5e1e4] mb-4">Skills</h2>
-                            <p className="text-on-surface-variant font-body max-w-xl">A comprehensive view of the languages, frameworks, and cloud technologies powering my projects and architectural decisions.</p>
-                        </div>
-
-                        <div className="relative overflow-hidden py-10 select-none">
-                            <div className="animate-marquee flex w-max shrink-0">
-                                {[0, 1, 2].map((setIdx) => (
-                                    <div key={`set-${setIdx}`} className="flex gap-6 pr-6 shrink-0">
-                                        {[
-                                            { name: "docker", label: "Docker" },
-                                            { name: "git", label: "Git" },
-                                            { name: "github", label: "GitHub" },
-                                            { name: "postman", label: "Postman" },
-                                            { name: "pytest", label: "Pytest" },
-                                            { name: "html5", label: "HTML" },
-                                            { name: "css3", label: "CSS" },
-                                            { name: "react", label: "React" },
-                                            { name: "nextjs", label: "Next.js" },
-                                            { name: "tailwindcss", label: "Tailwind CSS" },
-                                            { name: "flask", label: "Flask" },
-                                            { name: "nodejs", label: "Node.js" },
-                                            { name: "mysql", label: "REST APIs" },
-                                            { name: "python", label: "Python" }
-                                        ].map((tech, idx) => (
-                                            <div key={`${tech.name}-${idx}`} className="tooltip-container">
-                                                <span className="tooltip-label">{tech.label}</span>
-                                                <div className="w-16 h-16 rounded-2xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-4 hover:bg-surface-container-highest transition-all duration-300 hover:-translate-y-2 cursor-pointer shadow-lg">
-                                                    <StackIcon
-                                                        name={tech.name as any}
-                                                        variant="light"
-                                                        className={`w-full h-full ${['github', 'nextjs', 'flask'].includes(tech.name) ? 'white-icon' : ''}`}
-                                                    />
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Experience Section */}
-                    <div className="section-bg-5 w-full mb-32 py-16" id="experience">
-                        <section className="max-w-7xl mx-auto px-8 scroll-mt-32">
-                            <div className="glass-card overflow-hidden">
-                                <div className="flex flex-col lg:flex-row">
-                                    <div className="lg:w-1/2 p-12 bg-surface-container-lowest/50">
-                                        <h2 className="text-4xl font-headline font-bold text-[#e5e1e4] mb-6">Experience</h2>
-                                        <div className="flex items-center gap-4 mb-8">
-                                            <div className="w-14 h-14 rounded-2xl bg-white/5 border border-outline-variant/30 flex items-center justify-center shrink-0 shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-1 hover:scale-105 transition-transform duration-300">
-                                                <div className="w-full h-full rounded-xl flex items-center justify-center overflow-hidden relative border border-white/5">
-                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img src="/yokogawa.png" alt="Yokogawa Logo" className="w-full h-full object-cover" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <h3 className="text-xl font-bold text-white">Yokogawa UAE</h3>
-                                                <p className="text-white opacity-70 text-sm">Software Engineer Internship</p>
-                                            </div>
-                                        </div>
-                                        <span className="inline-block px-4 py-1 rounded-full bg-tertiary-container/20 text-tertiary text-xs font-label uppercase mb-8">
-                                            May 2025 – June 2025
-                                        </span>
-                                    </div>
-                                    <div className="lg:w-1/2 p-12 space-y-6">
-                                        <div className="flex gap-4">
-                                            <span className="text-primary font-bold text-lg leading-none">01</span>
-                                            <p className="text-on-surface-variant">Designed <span className="modern-highlighter">modular GUI</span> for Operator Training Simulators (OTS) using Python and CustomTkinter, enhancing operator interface responsiveness.</p>
-                                        </div>
-                                        <div className="flex gap-4">
-                                            <span className="text-primary font-bold text-lg leading-none">02</span>
-                                            <p className="text-on-surface-variant">Built advanced LSTM and XGBoost models for sensor data analysis, achieving an <span className="modern-highlighter">18% improvement</span> in forecast accuracy.</p>
-                                        </div>
-                                        <div className="flex gap-4">
-                                            <span className="text-primary font-bold text-lg leading-none">03</span>
-                                            <p className="text-on-surface-variant">Automated remote simulations through cloud integration, <span className="modern-highlighter">reducing manual deployment cycles by 40%</span>.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-
-                    {/* Projects, Certifications, and Contact Sections */}
-                    <div className="section-bg-6 w-full py-16">
-                        <section className="max-w-7xl mx-auto px-8 mb-32 scroll-mt-40" id="projects">
-                            <h2 className="text-4xl font-headline font-bold text-[#e5e1e4] mb-12">Projects</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                {/* Project 1 */}
-                                <div className="glass-card grid grid-rows-[auto_1fr] group hover:translate-y-[-8px] transition-all duration-300 h-full">
-                                    <div className="h-48 rounded-t-[1.5rem] overflow-hidden relative">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" data-alt="abstract visualization of server data flow with purple and blue glowing connections in a dark void" src="/projects/availapi.png" alt="AvailAPI context visualization" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent"></div>
-                                    </div>
-                                    <div className="p-8 flex flex-col flex-1">
-                                        <div>
-                                            <h3 className="text-2xl font-headline font-bold mb-3">AvailAPI</h3>
-                                            <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Engineered <span className="modern-highlighter">sub-60-second</span> incident detection for critical API infrastructure using high-performance monitoring stacks.</p>
-                                        </div>
-                                        <div className="flex flex-wrap gap-4 items-center justify-start mb-6">
-                                            {[
-                                                { name: "java", label: "Java" },
-                                                { name: "spring", label: "Spring Boot" },
-                                                { name: "postgresql", label: "PostgreSQL" },
-                                                { name: "angular", label: "Angular" },
-                                                { name: "docker", label: "Docker" }
-                                            ].map((tech, idx) => (
-                                                <div key={`${tech.name}-${idx}`} className="tooltip-container relative flex items-center justify-center">
-                                                    <div className="w-12 h-12 rounded-xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-110">
-                                                        <StackIcon
-                                                            name={tech.name as any}
-                                                            variant="light"
-                                                            className={`w-full h-full ${['github', 'nextjs', 'flask'].includes(tech.name) ? 'white-icon' : ''} ${tech.name === 'aws' ? 'aws-logo-white' : ''}`}
-                                                        />
-                                                    </div>
-                                                    <span className="tooltip-label">
-                                                        {tech.label}
-                                                    </span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <div className="flex items-center gap-3 mt-auto">
-                                            <a href="https://avail-api.vercel.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-on-primary transition-all duration-300">
-                                                <span className="material-symbols-outlined text-sm">open_in_new</span>
-                                                Live
-                                            </a>
-                                            <a href="https://www.github.com/hirtic-s/AvailAPI" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-all duration-300" title="GitHub Repository">
-                                                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Project 2 */}
-                                <div className="glass-card grid grid-rows-[auto_1fr] group hover:translate-y-[-8px] transition-all duration-300 h-full">
-                                    <div className="h-48 rounded-t-[1.5rem] overflow-hidden relative">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" data-alt="conceptual digital security vault with shimmering holographic lock and purple atmospheric lighting" src="/projects/vanishvault.png" alt="Vanish Vault Concept" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent"></div>
-                                    </div>
-                                    <div className="p-8 flex flex-col flex-1">
-                                        <div>
-                                            <h3 className="text-2xl font-headline font-bold mb-3">Vanish Vault</h3>
-                                            <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Architected secure, automated data disposal platform <span className="modern-highlighter">leveraging AWS infrastructure</span> for ephemeral storage management.</p>
-                                        </div>
-                                        <div className="flex flex-wrap gap-4 items-center justify-start mb-6">
-                                            {[
-                                                { name: "java", label: "Java" },
-                                                { name: "spring", label: "Spring Boot" },
-                                                { name: "aws", label: "AWS S3" },
-                                                { name: "react", label: "React" },
-                                                { name: "docker", label: "Docker" }
-                                            ].map((tech, idx) => (
-                                                <div key={`${tech.name}-${idx}`} className="tooltip-container relative flex items-center justify-center">
-                                                    <div className="w-12 h-12 rounded-xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-110">
-                                                        <StackIcon
-                                                            name={tech.name as any}
-                                                            variant="light"
-                                                            className={`w-full h-full ${['github', 'nextjs', 'flask'].includes(tech.name) ? 'white-icon' : ''} ${tech.name === 'aws' ? 'aws-logo-white' : ''}`}
-                                                        />
-                                                    </div>
-                                                    <span className="tooltip-label">
-                                                        {tech.label}
-                                                    </span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <div className="flex items-center gap-3 mt-auto">
-                                            <a href="https://vanishvault.vercel.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-on-primary transition-all duration-300">
-                                                <span className="material-symbols-outlined text-sm">open_in_new</span>
-                                                Live
-                                            </a>
-                                            <a href="https://github.com/hirtic-s/vanishvault" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-all duration-300" title="GitHub Repository">
-                                                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Project 3 - GooDeals */}
-                                <div className="glass-card grid grid-rows-[auto_1fr] group hover:translate-y-[-8px] transition-all duration-300 h-full">
-                                    <div className="h-48 rounded-t-[1.5rem] overflow-hidden relative">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" data-alt="AI-powered shopping assistant with glowing deal cards floating in a dark digital space with green and purple accents" src="/projects/goodeals.png" alt="GooDeals AI Shopping Platform" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent"></div>
-                                    </div>
-                                    <div className="p-8 flex flex-col flex-1">
-                                        <div>
-                                            <h3 className="text-2xl font-headline font-bold mb-3">GooDeals</h3>
-                                            <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">Full-stack platform with a <span className="modern-highlighter">Gemini-powered AI assistant</span> aggregating real-time deals across Amazon, Flipkart &amp; 3+ sites, reducing user spend by 10%.</p>
-                                        </div>
-                                        <div className="flex flex-wrap gap-4 items-center justify-start mb-6">
-                                            {[
-                                                { name: "java", label: "Java" },
-                                                { name: "spring", label: "Spring Boot" },
-                                                { name: "react", label: "React" },
-                                                { name: "postgresql", label: "PostgreSQL" },
-                                                { name: "docker", label: "Docker" },
-                                                { name: "gemini", label: "Gemini AI" }
-                                            ].map((tech, idx) => (
-                                                <div key={`${tech.name}-${idx}`} className="tooltip-container relative flex items-center justify-center">
-                                                    <div className="w-12 h-12 rounded-xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-110">
-                                                        <StackIcon
-                                                            name={tech.name as any}
-                                                            variant="light"
-                                                            className={`w-full h-full ${['github', 'nextjs', 'flask', 'aws'].includes(tech.name) ? 'white-icon' : ''}`}
-                                                        />
-                                                    </div>
-                                                    <span className="tooltip-label">
-                                                        {tech.label}
-                                                    </span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <div className="flex items-center gap-3 mt-auto">
-                                            <a href="https://www.github.com/hirtic-s/GooDeals" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-all duration-300" title="GitHub Repository">
-                                                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Certifications Section */}
-                        <section className="max-w-7xl mx-auto px-8 mb-32 scroll-mt-40" id="certifications">
-                            <h2 className="text-4xl font-headline font-bold text-[#e5e1e4] mb-12">Certifications</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-6 border border-primary/20 bg-primary-container/5 hover:bg-primary-container/10 transition-all duration-300 hover:translate-y-[-8px]">
-                                    <div className="w-16 h-16 rounded-2xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-3 transition-all duration-300 shadow-lg group-hover:scale-105">
-                                        <StackIcon name="aws" variant="light" className="w-full h-full aws-logo-white" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <h4 className="text-xl font-headline font-bold text-white">AWS Certified Cloud Practitioner</h4>
-                                        <p className="text-xs text-[#10b981] mt-1 font-mono uppercase tracking-widest mb-4">ID: c5a46586-7b24-4f4e-a134</p>
-                                        <a href="https://www.credly.com/badges/60dba673-b120-4d91-8fd5-bf8fc8f592a0" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-bold hover:bg-primary hover:text-on-primary transition-all duration-300">
-                                            <span className="material-symbols-outlined text-sm">verified</span>
-                                            Verify
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-6 border border-tertiary/20 bg-tertiary-container/5 hover:bg-tertiary-container/10 transition-all duration-300 hover:translate-y-[-8px]">
-                                    <div className="w-16 h-16 rounded-2xl bg-surface-container-high/40 backdrop-blur-md border border-white/5 flex items-center justify-center p-3 transition-all duration-300 shadow-lg group-hover:scale-105">
-                                        <StackIcon name="microsoft" variant="light" className="w-full h-full" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <h4 className="text-xl font-headline font-bold text-white">Microsoft Certified Azure AI Fundamentals</h4>
-                                        <p className="text-xs text-[#10b981] mt-1 font-mono uppercase tracking-widest mb-4">ID: dUaa-DwW2</p>
-                                        <a href="https://www.credly.com/badges/b4581db1-e0dd-44e0-9960-1d0a96c8c54f" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-tertiary/10 text-tertiary text-xs font-bold hover:bg-tertiary hover:text-on-tertiary transition-all duration-300">
-                                            <span className="material-symbols-outlined text-sm">verified</span>
-                                            Verify
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                    </div>
-                </main>
-
+              </div>
+              <div className="hero__media span-6 start-7">
+                <img
+                  src="/hirtic.jpg"
+                  width={874}
+                  height={808}
+                  alt="Hirtic Selvavinayagam in a navy suit on a terrace at night"
+                  style={{ ["--ly-pos" as string]: "50% 30%" }}
+                  fetchPriority="high"
+                  data-source="client"
+                  data-subject="portrait"
+                />
+                <div className="ly-float">
+                  <div className="ly-float__row"><span className="ly-live">AvailAPI</span><span>Spring Boot</span></div>
+                  <div className="ly-float__title">Flags a failing endpoint in under 60 seconds</div>
+                </div>
+              </div>
             </div>
+          </div>
+        </section>
 
-            {/* Floating Navigation Menu - Outside animation to stay fixed at viewport bottom */}
-            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
-                <nav className="glass-card flex items-center px-4 py-3 gap-2 border border-white/10 shadow-2xl backdrop-blur-3xl">
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#home" scroll={false}>
-                        <span className="material-symbols-outlined text-[24px] mb-[2px]">home</span>
-                        <span className="font-label text-[9px] uppercase tracking-widest leading-none">Home</span>
-                    </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#about" scroll={false}>
-                        <span className="material-symbols-outlined text-[24px] mb-[2px]">person</span>
-                        <span className="font-label text-[9px] uppercase tracking-widest leading-none">About</span>
-                    </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#education" scroll={false}>
-                        <span className="material-symbols-outlined text-[24px] mb-[2px]">school</span>
-                        <span className="font-label text-[9px] uppercase tracking-widest leading-none">Education</span>
-                    </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#skills" scroll={false}>
-                        <span className="material-symbols-outlined text-[24px] mb-[2px]">psychology</span>
-                        <span className="font-label text-[9px] uppercase tracking-widest leading-none">Skills</span>
-                    </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#experience" scroll={false}>
-                        <span className="material-symbols-outlined text-[24px] mb-[2px]">work</span>
-                        <span className="font-label text-[9px] uppercase tracking-widest leading-none">Experience</span>
-                    </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#projects" scroll={false}>
-                        <span className="material-symbols-outlined text-[24px] mb-[2px]">grid_view</span>
-                        <span className="font-label text-[9px] uppercase tracking-widest leading-none">Projects</span>
-                    </Link>
-                    <Link className="flex flex-col items-center justify-center text-[#e5e1e4]/60 w-[84px] h-[60px] hover:text-[#e5e1e4] transition-all duration-200 group border border-transparent rounded-2xl" href="#certifications" scroll={false}>
-                        <span className="material-symbols-outlined text-[24px] mb-[2px]">verified</span>
-                        <span className="font-label text-[9px] uppercase tracking-widest leading-none">Certs</span>
-                    </Link>
-
-                </nav>
+        <section className="section" id="projects" aria-labelledby="projects-h">
+          <div className="wrap">
+            <div className="grid proj-head">
+              <div className="span-6">
+                <h2 id="projects-h">AvailAPI, uptime checks for REST endpoints</h2>
+              </div>
+              <div className="span-6 start-7 stack-4">
+                <p>
+                  Add an endpoint and AvailAPI calls it every 30 seconds, records status and latency,
+                  and flags a failure in under 60 seconds.
+                </p>
+                <Chips ids={["java", "spring", "postgres", "angular", "docker"]} />
+                <p className="proj-links">
+                  <a className="link" href="https://avail-api.vercel.app">Open the live demo</a>
+                  <a className="link" href="https://github.com/hirtic-s/AvailAPI">Read the code</a>
+                </p>
+              </div>
             </div>
-        </>
-    );
+            <div className="aw-frame" data-visual="">
+              <AvailWindow />
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="more" aria-labelledby="more-h">
+          <div className="wrap">
+            <div className="section-head">
+              <h2 id="more-h">Two more Spring Boot projects</h2>
+            </div>
+            <div className="grid">
+              <article className="card card--row card--open m-nolift span-6">
+                <h3>Vanish Vault, files that delete themselves</h3>
+                <p>
+                  Vanish Vault puts a file on AWS S3 behind a password. The link dies after a set time or a set number of downloads.
+                </p>
+                <Chips ids={["java", "spring", "aws", "react", "docker"]} />
+                <p className="proj-links">
+                  <a className="link" href="https://vanishvault.vercel.app">Open the live demo</a>
+                  <a className="link" href="https://github.com/hirtic-s/vanishvault">Read the code</a>
+                </p>
+                <div className="panel panel--inset">
+                  <img className="frame__img" src="/projects/vanishvault.png" width={1024} height={511} alt="Vanish Vault upload form with a password, a 5-minute expiry and a one-download limit" loading="lazy" data-source="client" data-subject="vanish vault screen" />
+                </div>
+              </article>
+              <article className="card card--row card--open m-nolift span-6">
+                <h3>GooDeals, one price search for five stores</h3>
+                <p>
+                  GooDeals pulls live deals from Amazon, Flipkart and three more sites, with a Gemini assistant. It cut user spend by 10%.
+                </p>
+                <Chips ids={["java", "spring", "postgres", "react", "gemini"]} />
+                <p className="proj-links">
+                  <a className="link" href="https://github.com/hirtic-s/GooDeals">Read the code</a>
+                </p>
+                <div className="panel panel--inset">
+                  <img className="frame__img" src="/projects/goodeals.png" width={1024} height={514} alt="GooDeals search results for iPhone 17 Pro with store filters and a price of ₹1,34,900" loading="lazy" data-source="client" data-subject="goodeals screen" />
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="section statement" id="about" data-moment="word-highlight" aria-label="About">
+          <div className="wrap">
+            <p className="t-label">About</p>
+            <p className="mo-wh__text">
+              B.Tech in Computer Science at VIT, CGPA 8.09. I write Java services with <strong>Spring Boot</strong>,
+              test them in Postman and ship them in Docker to AWS.
+            </p>
+          </div>
+        </section>
+
+        <section className="section ground-surface" id="experience" aria-labelledby="exp-h">
+          <div className="wrap">
+            <div className="grid exp">
+              <div className="span-5 stack-6">
+                <h2 id="exp-h">
+                  Intern at Yokogawa UAE. <span className="muted">Software engineering, May to June 2025.</span>
+                </h2>
+                <div className="exp__logo" role="img" aria-label="Yokogawa logo" data-visual=""></div>
+              </div>
+              <ul className="rows span-6 start-7">
+                <li>
+                  <span className="rows__name">Forecasting models</span>
+                  <span className="rows__value">18% more accurate</span>
+                  <p>Built LSTM and XGBoost models on plant sensor data and raised forecast accuracy by 18%.</p>
+                </li>
+                <li>
+                  <span className="rows__name">Simulation deployments</span>
+                  <span className="rows__value">40% fewer manual cycles</span>
+                  <p>Automated remote simulation runs through cloud integration, cutting manual deployment cycles by 40%.</p>
+                </li>
+                <li>
+                  <span className="rows__name">Operator training interface</span>
+                  <span className="rows__value">Python</span>
+                  <p>Designed a modular GUI for Operator Training Simulators in Python and CustomTkinter.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="stack" aria-labelledby="stack-h">
+          <div className="wrap">
+            <div className="section-head">
+              <h2 id="stack-h">Java, Spring Boot and the rest of my stack</h2>
+            </div>
+            <div className="grid stack-grid">
+              <div className="span-6 stack-groups">
+              {stack.map((g) => (
+                <div key={g.group}>
+                  <p className="t-label muted">{g.group}</p>
+                  <ul className="stack-list">
+                    {g.items.map((t) => (
+                      <li key={t.icon}>
+                        <img className={`ic${t.ink ? " ic-ink" : ""}`} data-icon={t.icon} src={`/assets/icons/${t.icon}.svg`} alt="" width={22} height={22} loading="lazy" />
+                        {t.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              </div>
+              <div className="panel stack-panel span-6 start-7" data-visual="">
+                <div className="dg" data-diagram={JSON.stringify(hub)}></div>
+              </div>
+            </div>
+            <div className="grid certs">
+              <a className="card cert span-6" href="https://www.credly.com/badges/60dba673-b120-4d91-8fd5-bf8fc8f592a0">
+                <img className="ic" data-icon="aws" src="/assets/icons/aws.svg" alt="" width={48} height={48} loading="lazy" />
+                <span>
+                  <span className="cert__name">AWS Certified Cloud Practitioner</span>
+                  <span className="cert__link">Verify on Credly</span>
+                </span>
+              </a>
+              <a className="card cert span-6" href="https://www.credly.com/badges/b4581db1-e0dd-44e0-9960-1d0a96c8c54f">
+                <img className="ic" data-icon="microsoft-icon" src="/assets/icons/microsoft-icon.svg" alt="" width={48} height={48} loading="lazy" />
+                <span>
+                  <span className="cert__name">Microsoft Certified: Azure AI Fundamentals</span>
+                  <span className="cert__link">Verify on Credly</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="footer closing" id="contact" aria-labelledby="close-h">
+        <div className="wrap">
+          <div className="closing__cta close--type">
+            <div className="section-head">
+              <h2 id="close-h">Email me about a backend role</h2>
+              <p>New-grad roles on Java and Spring Boot teams. The resume has every project above.</p>
+            </div>
+            <a className="btn btn--primary btn--xl btn--wide" href={EMAIL}>Email me<Arrow /></a>
+          </div>
+          <div className="closing__links">
+            <div className="grid">
+              <div className="span-4 stack-4">
+                <a className="nav__logo" href="#top">
+                  <span className="mark" data-mark="ring" aria-hidden="true"></span>Hirtic Selvavinayagam
+                </a>
+                <p className="footer__lede">Java and Spring Boot backend engineer, VIT class of 2026.</p>
+              </div>
+              <div className="span-2 footer__col">
+                <h3>Projects</h3>
+                <ul>
+                  <li><a href="#projects">AvailAPI</a></li>
+                  <li><a href="#more">Vanish Vault</a></li>
+                  <li><a href="#more">GooDeals</a></li>
+                </ul>
+              </div>
+              <div className="span-2 footer__col">
+                <h3>Profile</h3>
+                <ul>
+                  <li><a href="#experience">Experience</a></li>
+                  <li><a href="#stack">Stack</a></li>
+                  <li><a href="#about">About</a></li>
+                </ul>
+              </div>
+              <div className="span-2 footer__col">
+                <h3>Code</h3>
+                <ul>
+                  <li><a href="https://github.com/hirtic-s/AvailAPI">AvailAPI repo</a></li>
+                  <li><a href="https://github.com/hirtic-s/vanishvault">Vanish Vault repo</a></li>
+                  <li><a href="https://github.com/hirtic-s/GooDeals">GooDeals repo</a></li>
+                </ul>
+              </div>
+              <div className="span-2 footer__col">
+                <h3>Elsewhere</h3>
+                <ul>
+                  <li><a href={GITHUB}>GitHub</a></li>
+                  <li><a href={LINKEDIN}>LinkedIn</a></li>
+                  <li><a href={RESUME}>Resume</a></li>
+                </ul>
+              </div>
+            </div>
+            <div className="footer__legal">
+              <span>&copy; 2026 Hirtic Selvavinayagam. Product names and logos are trademarks of their owners.</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <nav className="actionbar" aria-label="Quick actions">
+        <a className="btn btn--primary" href={EMAIL}>Email me</a>
+      </nav>
+    </>
+  );
 }
