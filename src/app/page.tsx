@@ -367,7 +367,7 @@ export default function Home() {
         <section className="section" id="stack" aria-labelledby="stack-h">
           <div className="wrap">
             <div className="section-head">
-              <h2 id="stack-h">Java, Spring Boot and the rest of my stack</h2>
+              <h2 id="stack-h">My tech stack</h2>
             </div>
             <div className="grid stack-grid">
               <div className="span-6 stack-groups">
