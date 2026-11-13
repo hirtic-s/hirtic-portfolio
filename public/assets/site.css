@@ -70,9 +70,9 @@
 .about-stats .t-stat { font-variant-numeric: proportional-nums; font-size: clamp(30px, 1.6vw + 20px, 48px); }
 @media (min-width: 1024px) { .about-stats { margin-top: auto; } }
 
-/* Yokogawa: a control-room photograph as the section's picture */
+/* Yokogawa: the logo on a white tile as the section's picture */
 .exp { align-items: start; }
-.exp__photo { width: 100%; height: 420px; }
+.exp__logo { width: 100%; height: 420px; border-radius: var(--r-lg); background: #fff url(/yokogawa-logo.png) center / 72% auto no-repeat; }
 #experience .rows > li { padding-block: var(--s-5); }
 #experience .rows > li:first-child { padding-top: 0; }
 @media (max-width: 639px) { #experience .rows > li { padding-block: var(--s-4); } }
@@ -95,13 +95,13 @@
 
 /* the tablet stacks the splits: these sections take two screens there, and on a phone */
 @media (min-width: 640px) and (max-width: 1023px) {
-  .exp__photo { height: 320px; }
+  .exp__logo { height: 320px; }
   .stack-panel { --p-h: 260px; }
   .stack-groups { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 639px) {
   #more, #stack, #contact { --hm: 2; }
-  .exp__photo { height: 200px; }
+  .exp__logo { height: 200px; }
   #experience .rows > li { padding-block: var(--s-3); }
   .stack-panel { --p-h: 340px; }
   .stack-groups { grid-template-columns: 1fr; }

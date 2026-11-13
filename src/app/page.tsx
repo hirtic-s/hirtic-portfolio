@@ -341,22 +341,7 @@ export default function Home() {
                 <h2 id="exp-h">
                   Intern at Yokogawa UAE. <span className="muted">Software engineering, May to June 2025.</span>
                 </h2>
-                {/* stand-in: a process control room until a photograph from the internship replaces it */}
-                <div className="frame frame--photo exp__photo" data-visual="">
-                  <img
-                    className="frame__img"
-                    src="/assets/img/photo-f186110784-960.jpg"
-                    srcSet="/assets/img/photo-f186110784-500.jpg 500w, /assets/img/photo-f186110784-960.jpg 960w"
-                    sizes="(max-width: 1023px) 100vw, 40vw"
-                    width={960}
-                    height={539}
-                    alt="An engineer at a desk of process screens in a plant control room"
-                    loading="lazy"
-                    decoding="async"
-                    data-source="stand-in"
-                    data-subject="control room"
-                  />
-                </div>
+                <div className="exp__logo" role="img" aria-label="Yokogawa logo" data-visual=""></div>
               </div>
               <ul className="rows span-6 start-7">
                 <li>
@@ -475,9 +460,7 @@ export default function Home() {
               </div>
             </div>
             <div className="footer__legal">
-              <span>&copy; 2026 Hirtic Selvavinayagam. Product names and logos are trademarks of their owners.</span>
-              <a href="https://commons.wikimedia.org/wiki/File:Engine_Control_Room_Harmony_of_the_Seas_2026.jpg">Control room photograph by Larry D. Moore, CC BY 4.0</a>
-            </div>
+              <span>&copy; 2026 Hirtic Selvavinayagam. Product names and logos are trademarks of their owners.</span>            </div>
           </div>
         </div>
       </footer>
