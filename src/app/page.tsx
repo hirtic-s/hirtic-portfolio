@@ -132,38 +132,37 @@ const hub = {
 
 const stack: { group: string; items: Tool[] }[] = [
   {
-    group: "Backend",
+    group: "Languages",
     items: [
       { icon: "java", name: "Java" },
-      { icon: "spring", name: "Spring Boot" },
-      { icon: "postgres", name: "PostgreSQL" },
-      { icon: "nodejs", name: "Node.js" },
-      { icon: "flask", name: "Flask" },
+      { icon: "python", name: "Python" },
     ],
   },
   {
-    group: "Cloud and delivery",
+    group: "Cloud and containers",
     items: [
-      { icon: "docker", name: "Docker" },
       { icon: "aws", name: "AWS" },
       { icon: "azure", name: "Azure" },
-      { icon: "git", name: "Git" },
-      { icon: "github", name: "GitHub" },
+      { icon: "docker", name: "Docker" },
     ],
   },
   {
-    group: "Frontend",
+    group: "Frameworks",
     items: [
+      { icon: "spring", name: "Spring Boot" },
+      { icon: "flask", name: "Flask" },
       { icon: "react", name: "React" },
       { icon: "angular", name: "Angular" },
       { icon: "nextjs", name: "Next.js" },
     ],
   },
   {
-    group: "Testing and data",
+    group: "Database and tools",
     items: [
+      { icon: "postgres", name: "PostgreSQL" },
+      { icon: "git", name: "Git" },
+      { icon: "github", name: "GitHub" },
       { icon: "postman", name: "Postman" },
-      { icon: "python", name: "Python" },
     ],
   },
 ];
@@ -175,7 +174,7 @@ export default function Home() {
         <div className="wrap nav__bar">
           <a className="skip-link" href="#top">Skip to content</a>
           <a className="nav__logo" href="#top">
-            <span className="mark" data-mark="ring" aria-hidden="true"></span>Hirtic Selvavinayagam
+            <span className="mark" data-mark="star" aria-hidden="true"><i /><i /><i /><i /><i /></span>Hirtic Selvavinayagam
           </a>
           <nav className="nav__links" aria-label="Main">
             <div className="nav__item">
@@ -422,7 +421,7 @@ export default function Home() {
             <div className="grid">
               <div className="span-4 stack-4">
                 <a className="nav__logo" href="#top">
-                  <span className="mark" data-mark="ring" aria-hidden="true"></span>Hirtic Selvavinayagam
+                  <span className="mark" data-mark="star" aria-hidden="true"><i /><i /><i /><i /><i /></span>Hirtic Selvavinayagam
                 </a>
                 <p className="footer__lede">Java and Spring Boot backend engineer, VIT class of 2026.</p>
               </div>
