@@ -1,55 +1,18 @@
 /* Page CSS: only what sits inside a visual, one --p-h per card group, and the few page parts the kit lacks. */
 
-/* AvailAPI: head row over the app window across the wrap */
+/* GooDeals: head row over its screenshot across the wrap; the frame links to the code and zooms on hover */
 #projects .proj-head { align-items: start; margin-bottom: var(--s-7); }
 .proj-links { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-6); }
 .proj-links .link { display: inline-flex; align-items: center; min-height: 44px; }
 
-.aw-frame { height: 456px; border-radius: var(--r-lg); overflow: hidden; background: #0d0f12; box-shadow: 0 0 0 1px var(--line); }
-.aw { --aw-line: #23262c; --aw-dim: #8a9099; height: 100%; display: flex; flex-direction: column;
-  color: #e7e9ec; font: 400 14px/1.4 var(--font-text); background: #0d0f12; }
-.aw__bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px;
-  border-bottom: 1px solid var(--aw-line); }
-.aw__brand { font-weight: 500; font-size: 15px; }
-.aw__nav { color: var(--aw-dim); }
-.aw__body { flex: 1; min-height: 0; display: grid; grid-template-columns: 200px 1fr 260px; }
-.aw__side, .aw__over { padding: 16px 20px; }
-.aw__side { border-right: 1px solid var(--aw-line); }
-.aw__over { border-left: 1px solid var(--aw-line); }
-.aw__main { padding: 16px 20px; overflow: hidden; }
-.aw__label { color: var(--aw-dim); font-size: 13px; font-weight: 500; margin: 0 0 12px; }
-.aw__over .aw__label + .aw__err, .aw__stat + .aw__label { margin-top: 0; }
-.aw__stat + .aw__label { margin-top: 20px; }
-.aw__ep { display: flex; gap: 10px; align-items: baseline; padding: 6px 0; }
-.aw__ep small { display: block; color: var(--aw-dim); font-size: 13px; }
-.aw__dot { width: 7px; height: 7px; border-radius: 50%; background: #3fbf6a; flex: none; transform: translateY(-1px); }
-.aw__table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-.aw__table th:nth-child(1) { width: 26%; } .aw__table th:nth-child(2) { width: 30%; } .aw__table th:nth-child(3) { width: 20%; }
-.aw__table th { text-align: left; color: var(--aw-dim); font-weight: 500; font-size: 13px; padding: 0 0 8px; }
-.aw__table td { padding: 7px 0; border-top: 1px solid var(--aw-line); }
-.aw__mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: #9fe0b4; }
-.aw__time { color: var(--aw-dim); }
-.aw__up, .aw__warn { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 13px; font-weight: 500; }
-.aw__up { color: #7ee2a0; background: #13301f; }
-.aw__warn { color: #f0c46a; background: #3a2d10; }
-.aw__stat { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 14px;
-  border: 1px solid var(--aw-line); border-radius: 10px; margin-bottom: 10px; color: var(--aw-dim); }
-.aw__stat b { color: #e7e9ec; font-weight: 500; font-size: 20px; }
-.aw__err { display: flex; gap: 8px; align-items: center; }
-
-@media (max-width: 1023px) {
-  .aw__body { grid-template-columns: 1fr 220px; }
-  .aw__side { display: none; }
-}
+.proj-frame { display: block; height: 456px; border-radius: var(--r-lg); overflow: hidden; background: #0d0f12; box-shadow: 0 0 0 1px var(--line); }
+.proj-frame .frame__img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
 @media (max-width: 639px) {
   #projects .proj-head { margin-bottom: var(--s-6); }
-  .aw-frame { height: 300px; }
-  .aw__body { grid-template-columns: 1fr; }
-  .aw__over { display: none; }
-  .aw__table th:nth-child(4), .aw__table td:nth-child(4) { display: none; }
+  .proj-frame { height: 300px; }
 }
 
-/* Vanish Vault and GooDeals: one panel height for the pair */
+/* AvailAPI and Vanish Vault: one panel height for the pair */
 #more .panel { --p-h: 300px; }
 #more .panel .frame__img { object-fit: cover; object-position: 50% 0; }
 #more .ic-chip-row { margin-top: var(--s-4); }
@@ -63,17 +26,18 @@
 }
 @media (max-width: 1023px) { .hero--split .hero__facts { display: none; } }
 
-/* About: the statement, then the education figures on the column lines */
-.about-stats { margin-top: var(--s-8); }
-.about-stats dt { color: var(--muted); font-size: var(--t-small); }
-/* proportional figures, so the decimal point in 8.09 is not set a figure wide */
-.about-stats .t-stat { font-variant-numeric: proportional-nums; font-size: clamp(30px, 1.6vw + 20px, 48px); }
-@media (min-width: 1024px) { .about-stats { margin-top: auto; } }
+/* About: the statement, then the education as a list read across, straight under it */
+#about .grid { margin-top: var(--s-8); }
+.about-edu { list-style: none; margin: 0; padding: 0; }
+.about-edu > li > p { color: var(--muted); margin: 0; }
+@media (max-width: 639px) { #about .grid { margin-top: var(--s-7); } }
 
 /* Yokogawa: the logo on a white tile as the section's picture */
 .exp { align-items: start; }
-.exp__logo { width: 100%; height: 420px; border-radius: var(--r-lg); background: #fff url(/yokogawa-logo.png) center / 72% auto no-repeat; }
-#experience .rows > li { padding-block: var(--s-5); }
+.exp__logo { width: 100%; height: 380px; border-radius: var(--r-lg); background: #fff; overflow: hidden; }
+/* the logo image is the whole tile: it fits inside with a quarter of the width clear on each side */
+.exp__logo img { display: block; width: 100%; height: 100%; object-fit: contain; padding: 0 25%; box-sizing: border-box; }
+#experience .rows > li { padding-block: var(--s-6); }
 #experience .rows > li:first-child { padding-top: 0; }
 @media (max-width: 639px) { #experience .rows > li { padding-block: var(--s-4); } }
 
@@ -81,7 +45,7 @@
 /* the inner columns share the page gutter, so they sit on page columns 1 and 4 */
 .stack-groups { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6) var(--s-5); align-content: start; }
 .stack-list { list-style: none; margin: var(--s-3) 0 0; padding: 0; }
-.stack-list li { display: flex; align-items: center; gap: var(--s-3); padding: 4px 0; font-size: var(--t-body); }
+.stack-list li { display: flex; align-items: center; gap: var(--s-3); padding: 6px 0; font-size: var(--t-body); }
 /* logos sit on a small light tile so dark marks (AWS, Next.js, GitHub) read on the dark ground */
 .stack-list .ic { box-sizing: content-box; width: 20px; height: 20px; padding: 4px; object-fit: contain; background: var(--p-ink); border-radius: 6px; }
 .stack-panel { --p-h: 368px; --ground-bg: var(--surface); height: var(--p-h); border-radius: var(--r-lg); box-shadow: inset 0 0 0 1px var(--line); }
@@ -95,7 +59,7 @@
 
 /* the tablet stacks the splits: these sections take two screens there, and on a phone */
 @media (min-width: 640px) and (max-width: 1023px) {
-  .exp__logo { height: 320px; }
+  .exp__logo { height: 260px; }
   .stack-panel { --p-h: 260px; }
   .stack-groups { grid-template-columns: repeat(4, 1fr); }
 }
@@ -122,15 +86,43 @@ html:not([data-motion="off"]) .btn--primary:active { background: color-mix(in ok
 html .btn--secondary:is(:hover, :focus-visible),
 html:not([data-motion="off"]) .btn--secondary:is(:hover, :focus-visible) { color: var(--btn-hover); }
 
+/* Nav: GitHub and LinkedIn marks at the right end, each a 44px target; the mark lifts a step on hover */
+.nav__social { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px;
+  border-radius: var(--r-sm); color: inherit; }
+.nav__social .ic { --ic-s: 22px; transition: transform var(--m-in) var(--ease), opacity var(--m-in) var(--ease); opacity: .85; }
+.nav__social:is(:hover, :focus-visible) .ic { opacity: 1; transform: translateY(-1px); }
+.nav__actions { gap: var(--s-2); }
+.nav__actions > .nav__link { margin-right: var(--s-2); }
+
+/* Email button: a click shows the address on a small card under the button (above it in the phone bar and the
+   close), with a copy control and a mail link. The card sits on the surface colour with the kit's hairline. */
+.email-pop { position: relative; display: inline-flex; }
+.btn--wide .email-pop, .email-pop:has(.btn--wide) { display: flex; width: 100%; }
+.email-pop__card { position: absolute; z-index: 30; left: 0; top: calc(100% + var(--s-2)); min-width: 280px;
+  display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-4) var(--s-5);
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: var(--r-md);
+  box-shadow: 0 12px 32px rgb(0 0 0 / .35); font-size: var(--t-body); text-align: left; }
+.email-pop[data-up] .email-pop__card { top: auto; bottom: calc(100% + var(--s-2)); }
+.email-pop__card[hidden] { display: none; }
+.email-pop__addr { font-size: 17px; font-weight: 500; letter-spacing: -0.01em; user-select: all; }
+.email-pop__copy { align-self: flex-start; font: inherit; font-weight: 500; color: var(--bg); background: var(--ink); border: 0;
+  border-radius: 999px; padding: 8px 14px; min-height: 36px; cursor: pointer; }
+.email-pop__copy:is(:hover, :focus-visible) { background: var(--btn-hover); color: var(--btn-hover-ink); }
+@media (max-width: 639px) {
+  .email-pop { display: flex; width: 100%; }
+  .email-pop__card { left: 0; right: 0; min-width: 0; }
+}
+
 /* Status dots: green for "live", beside the name in the hero and on the AvailAPI card */
 :root { --live: #2fd26b; }
 .hero__kicker .dot,
 .ly-live::before { background: var(--live); box-shadow: 0 0 0 0 color-mix(in oklab, var(--live) 50%, transparent); }
 
-/* Tech stack hub: a clean still. The kit freezes the busiest moment of its pulse (half-lit spokes,
-   one node lit, a glow under the core); here every spoke is the same hairline and no node is singled out. */
-.stack-panel .dg .dg-lit,
-.stack-panel .dg .dg-halo { display: none; }
+/* Tech stack hub: a calm still. The kit freezes the busiest moment of its pulse (half-lit spokes,
+   one node lit); here every spoke is the same hairline and no node is singled out. The soft halo
+   under the Spring Boot core stays, a little stronger, so the drawing has a centre. */
+.stack-panel .dg { --dg-halo: 0.22; }
+.stack-panel .dg .dg-lit { display: none; }
 .stack-panel .dg .dg-node.is-hit { border-color: var(--dg-border); box-shadow: var(--dg-shadow); }
 .stack-panel .dg .dg-node:is(.dg-node--core, .dg-node--core-pill).is-hit { border-color: transparent; }
 .stack-panel .dg .dg-node:is(.dg-node--core, .dg-node--core-pill).is-hit::before { border-color: color-mix(in oklab, var(--dg-ink) 10%, transparent); }

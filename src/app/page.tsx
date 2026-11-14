@@ -7,7 +7,8 @@
   moments: word-highlight in #about
 */
 
-const EMAIL = "mailto:hirtic2004@gmail.com";
+import EmailButton from "@/components/EmailButton";
+
 const RESUME = "https://drive.google.com/file/d/1G1wTw3AlolQoNWvG2wbgmdSQIbRSGrLB/view?usp=sharing";
 const GITHUB = "https://github.com/hirtic-s";
 const LINKEDIN = "https://www.linkedin.com/in/hirtic-s";
@@ -47,69 +48,6 @@ function Arrow() {
       <path className="m-arrow__stem" d="M1 6h8" />
       <path className="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
     </svg>
-  );
-}
-
-// AvailAPI's dashboard, set in HTML from the live app's own data so it stays sharp at any width
-const checks = [
-  ["UP", "hirtic", "99 ms", "06:04:30"],
-  ["UP", "linkedin", "103 ms", "06:04:15"],
-  ["UP", "youtube", "12 ms", "06:04:15"],
-  ["UP", "hirtic", "94 ms", "06:04:00"],
-  ["UP", "youtube", "88 ms", "06:03:45"],
-  ["UP", "linkedin", "8 ms", "06:03:45"],
-  ["UP", "youtube", "1,393 ms", "06:02:17"],
-  ["TIMEOUT", "hirtic", "98 ms", "06:01:05"],
-  ["UP", "hirtic", "7 ms", "06:00:30"],
-];
-
-function AvailWindow() {
-  return (
-    <div className="aw" data-ui="" role="img" aria-label="AvailAPI dashboard: three endpoints checked every 30 seconds, 99.1% uptime over 24 hours, one timeout in the recent errors">
-      <div className="aw__bar">
-        <span className="aw__brand">AvailAPI</span>
-        <span className="aw__nav">Status page</span>
-      </div>
-      <div className="aw__body">
-        <aside className="aw__side">
-          <p className="aw__label">Endpoints</p>
-          {["hirtic", "youtube", "linkedin"].map((e) => (
-            <div key={e} className="aw__ep">
-              <span className="aw__dot" />
-              <span>
-                {e}
-                <small>every 30 s</small>
-              </span>
-            </div>
-          ))}
-        </aside>
-        <div className="aw__main">
-          <p className="aw__label">Recent health checks</p>
-          <table className="aw__table">
-            <thead>
-              <tr><th>Status</th><th>Endpoint</th><th>Latency</th><th>Time</th></tr>
-            </thead>
-            <tbody>
-              {checks.map(([s, e, l, t], i) => (
-                <tr key={i}>
-                  <td><span className={s === "UP" ? "aw__up" : "aw__warn"}>{s}</span></td>
-                  <td>{e}</td>
-                  <td className="aw__mono">{l}</td>
-                  <td className="aw__mono aw__time">{t}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <aside className="aw__over">
-          <p className="aw__label">System overview</p>
-          <div className="aw__stat"><span>Uptime, 24 h</span><b>99.1%</b></div>
-          <div className="aw__stat"><span>Active endpoints</span><b>3</b></div>
-          <p className="aw__label">Recent errors</p>
-          <div className="aw__err"><span className="aw__warn">TIMEOUT</span> hirtic</div>
-        </aside>
-      </div>
-    </div>
   );
 }
 
@@ -188,13 +126,13 @@ export default function Home() {
                 <div className="wrap grid">
                   <div className="menu-col span-4">
                     <p className="t-label">Projects</p>
-                    <a href="#projects">AvailAPI<span>Uptime checks for REST endpoints</span></a>
+                    <a href="#projects">GooDeals<span>AI shopping assistant built on Gemini</span></a>
+                    <a href="#more">AvailAPI<span>Uptime checks for REST endpoints</span></a>
                     <a href="#more">Vanish Vault<span>Files that delete themselves</span></a>
-                    <a href="#more">GooDeals<span>Price comparison with Gemini</span></a>
                   </div>
                   <div className="menu-col span-4 start-7">
                     <p className="t-label">Code</p>
-                    <a href={GITHUB}>GitHub<span>Every repository, public</span></a>
+                    <a href={GITHUB} target="_blank" rel="noopener noreferrer">GitHub<span>Every repository, public</span></a>
                   </div>
                 </div>
               </div>
@@ -204,8 +142,13 @@ export default function Home() {
             <div className="nav__item"><a className="nav__link" href="#about">About</a></div>
           </nav>
           <div className="nav__actions">
-            <a className="nav__link" href={RESUME}>Resume</a>
-            <a className="btn btn--primary" href={EMAIL}>Email me</a>
+            <a className="nav__link" href={RESUME} target="_blank" rel="noopener noreferrer">Resume</a>
+            <a className="nav__social" href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <img className="ic ic-ink" data-icon="github" src="/assets/icons/github.svg" alt="" width={22} height={22} />
+            </a>
+            <a className="nav__social" href={LINKEDIN} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <img className="ic ic-ink" data-icon="linkedin" src="/assets/icons/linkedin-mono.svg" alt="" width={22} height={22} />
+            </a>
           </div>
           <button className="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
             <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
@@ -220,15 +163,14 @@ export default function Home() {
           <div className="wrap">
             <div className="hero-text grid hero__grid">
               <div className="hero__text span-5">
-                <p className="hero__kicker"><span className="dot" aria-hidden="true"></span>Hirtic Selvavinayagam, VIT class of 2026</p>
                 <h1 id="hero-h">Java and Spring Boot backend engineer</h1>
                 <p className="hero__lead">
-                  I build REST APIs with Spring Boot, keep the data in PostgreSQL and ship it in Docker.
-                  Three projects with public code, open to new-grad backend roles.
+                  I like problems that need a dependable service behind them. So far that means three Spring Boot
+                  projects built from the first endpoint to the Docker image, with every repo public.
                 </p>
                 <div className="btn-row">
-                  <a className="btn btn--primary" href={EMAIL}>Email me<Arrow /></a>
-                  <a className="btn btn--secondary" href={RESUME}>Read my resume</a>
+                  <EmailButton>Email me<Arrow /></EmailButton>
+                  <a className="btn btn--secondary" href={RESUME} target="_blank" rel="noopener noreferrer">Read my resume</a>
                 </div>
                 <dl className="hero__facts hero__facts--col">
                   <div><dt>Degree</dt><dd>B.Tech Computer Science, VIT</dd></div>
@@ -239,6 +181,8 @@ export default function Home() {
               <div className="hero__media span-6 start-7">
                 <img
                   src="/hirtic.jpg"
+                  srcSet="/hirtic-720.jpg 720w, /hirtic.jpg 874w"
+                  sizes="(max-width: 639px) 100vw, (max-width: 1023px) 90vw, 630px"
                   width={874}
                   height={808}
                   alt="Hirtic Selvavinayagam in a navy suit on a terrace at night"
@@ -248,8 +192,8 @@ export default function Home() {
                   data-subject="portrait"
                 />
                 <div className="ly-float">
-                  <div className="ly-float__row"><span className="ly-live">AvailAPI</span><span>Spring Boot</span></div>
-                  <div className="ly-float__title">Flags a failing endpoint in under 60 seconds</div>
+                  <div className="ly-float__row"><span className="ly-live">GooDeals</span><span>Gemini AI</span></div>
+                  <div className="ly-float__title">An AI shopping assistant across five stores, 10% less spend</div>
                 </div>
               </div>
             </div>
@@ -260,23 +204,22 @@ export default function Home() {
           <div className="wrap">
             <div className="grid proj-head">
               <div className="span-6">
-                <h2 id="projects-h">AvailAPI, uptime checks for REST endpoints</h2>
+                <h2 id="projects-h">GooDeals, an AI shopping assistant across five stores</h2>
               </div>
               <div className="span-6 start-7 stack-4">
                 <p>
-                  Add an endpoint and AvailAPI calls it every 30 seconds, records status and latency,
-                  and flags a failure in under 60 seconds.
+                  Ask for a product and GooDeals pulls live deals from Amazon, Flipkart and three more sites, then its
+                  Gemini assistant helps you compare them and pick. It cut user spend by 10%.
                 </p>
-                <Chips ids={["java", "spring", "postgres", "angular", "docker"]} />
+                <Chips ids={["gemini", "java", "spring", "postgres", "react"]} />
                 <p className="proj-links">
-                  <a className="link" href="https://avail-api.vercel.app">Open the live demo</a>
-                  <a className="link" href="https://github.com/hirtic-s/AvailAPI">Read the code</a>
+                  <a className="link" href="https://github.com/hirtic-s/GooDeals" target="_blank" rel="noopener noreferrer">Read the code</a>
                 </p>
               </div>
             </div>
-            <div className="aw-frame" data-visual="">
-              <AvailWindow />
-            </div>
+            <a className="proj-frame m-zoom" href="https://github.com/hirtic-s/GooDeals" target="_blank" rel="noopener noreferrer" aria-label="Open the GooDeals code on GitHub" data-visual="">
+              <img className="frame__img" src="/projects/goodeals.png" srcSet="/projects/goodeals-720.png 720w, /projects/goodeals.png 1024w" sizes="(max-width: 1023px) 100vw, 1280px" width={1024} height={514} alt="GooDeals search results for iPhone 17 Pro with store filters and a price of ₹1,34,900" fetchPriority="high" data-source="client" data-subject="goodeals screen" />
+            </a>
           </div>
         </section>
 
@@ -293,25 +236,24 @@ export default function Home() {
                 </p>
                 <Chips ids={["java", "spring", "aws", "react", "docker"]} />
                 <p className="proj-links">
-                  <a className="link" href="https://vanishvault.vercel.app">Open the live demo</a>
-                  <a className="link" href="https://github.com/hirtic-s/vanishvault">Read the code</a>
+                  <a className="link" href="https://github.com/hirtic-s/vanishvault" target="_blank" rel="noopener noreferrer">Read the code</a>
                 </p>
-                <div className="panel panel--inset">
-                  <img className="frame__img" src="/projects/vanishvault.png" width={1024} height={511} alt="Vanish Vault upload form with a password, a 5-minute expiry and a one-download limit" loading="lazy" data-source="client" data-subject="vanish vault screen" />
-                </div>
+                <a className="panel panel--inset m-zoom" href="https://github.com/hirtic-s/vanishvault" target="_blank" rel="noopener noreferrer" aria-label="Open the Vanish Vault code on GitHub">
+                  <img className="frame__img" src="/projects/vanishvault.png" srcSet="/projects/vanishvault-720.png 720w, /projects/vanishvault.png 1024w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 90vw, 630px" width={1024} height={511} alt="Vanish Vault upload form with a password, a 5-minute expiry and a one-download limit" loading="lazy" data-source="client" data-subject="vanish vault screen" />
+                </a>
               </article>
               <article className="card card--row card--open m-nolift span-6">
-                <h3>GooDeals, one price search for five stores</h3>
+                <h3>AvailAPI, uptime checks for REST endpoints</h3>
                 <p>
-                  GooDeals pulls live deals from Amazon, Flipkart and three more sites, with a Gemini assistant. It cut user spend by 10%.
+                  Add an endpoint and AvailAPI calls it every 30 seconds, records status and latency, and flags a failure in under 60 seconds.
                 </p>
-                <Chips ids={["java", "spring", "postgres", "react", "gemini"]} />
+                <Chips ids={["java", "spring", "postgres", "angular", "docker"]} />
                 <p className="proj-links">
-                  <a className="link" href="https://github.com/hirtic-s/GooDeals">Read the code</a>
+                  <a className="link" href="https://github.com/hirtic-s/AvailAPI" target="_blank" rel="noopener noreferrer">Read the code</a>
                 </p>
-                <div className="panel panel--inset">
-                  <img className="frame__img" src="/projects/goodeals.png" width={1024} height={514} alt="GooDeals search results for iPhone 17 Pro with store filters and a price of ₹1,34,900" loading="lazy" data-source="client" data-subject="goodeals screen" />
-                </div>
+                <a className="panel panel--inset m-zoom" href="https://github.com/hirtic-s/AvailAPI" target="_blank" rel="noopener noreferrer" aria-label="Open the AvailAPI code on GitHub">
+                  <img className="frame__img" src="/projects/availapi.png" srcSet="/projects/availapi-720.png 720w, /projects/availapi.png 1024w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 90vw, 630px" width={1024} height={516} alt="AvailAPI status page with recent health checks, latency per endpoint and 24-hour uptime" loading="lazy" data-source="client" data-subject="availapi screen" />
+                </a>
               </article>
             </div>
           </div>
@@ -324,12 +266,23 @@ export default function Home() {
               I like the part of a system <strong>nobody sees</strong>: the check that runs every 30 seconds,
               the file link that dies on time, the price feed that reads five stores at once.
             </p>
-            <dl className="stats about-stats">
-              <div><dt>CGPA, B.Tech Computer Science</dt><dd className="t-stat">8.09</dd></div>
-              <div><dt>Vellore Institute of Technology</dt><dd className="t-stat">2022 to 2026</dd></div>
-              <div><dt>Grade 12, CBSE science</dt><dd className="t-stat">86.0%</dd></div>
-              <div><dt>Grade 10, CBSE</dt><dd className="t-stat">90.8%</dd></div>
-            </dl>
+            <div className="grid">
+              <ul className="rows about-edu span-7" aria-label="Education">
+                <li>
+                  <span className="rows__name">B.Tech Computer Science, Vellore Institute of Technology</span>
+                  <span className="rows__value">CGPA 8.09</span>
+                  <p>2022 to 2026</p>
+                </li>
+                <li>
+                  <span className="rows__name">Grade 12, CBSE science</span>
+                  <span className="rows__value">86.0%</span>
+                </li>
+                <li>
+                  <span className="rows__name">Grade 10, CBSE</span>
+                  <span className="rows__value">90.8%</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -340,7 +293,9 @@ export default function Home() {
                 <h2 id="exp-h">
                   Intern at Yokogawa UAE. <span className="muted">Software engineering, May to June 2025.</span>
                 </h2>
-                <div className="exp__logo" role="img" aria-label="Yokogawa logo" data-visual=""></div>
+                <div className="exp__logo" data-visual="">
+                  <img src="/yokogawa-logo.png" srcSet="/yokogawa-logo-640.png 640w, /yokogawa-logo.png 1200w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 90vw, 519px" width={1200} height={152} alt="Yokogawa logo" loading="lazy" data-source="client" data-subject="yokogawa logo" />
+                </div>
               </div>
               <ul className="rows span-6 start-7">
                 <li>
@@ -389,14 +344,14 @@ export default function Home() {
               </div>
             </div>
             <div className="grid certs">
-              <a className="card cert span-6" href="https://www.credly.com/badges/60dba673-b120-4d91-8fd5-bf8fc8f592a0">
+              <a className="card cert span-6" href="https://www.credly.com/badges/60dba673-b120-4d91-8fd5-bf8fc8f592a0" target="_blank" rel="noopener noreferrer">
                 <img className="ic" data-icon="aws" src="/assets/icons/aws.svg" alt="" width={48} height={48} loading="lazy" />
                 <span>
                   <span className="cert__name">AWS Certified Cloud Practitioner</span>
                   <span className="cert__link">Verify on Credly</span>
                 </span>
               </a>
-              <a className="card cert span-6" href="https://www.credly.com/badges/b4581db1-e0dd-44e0-9960-1d0a96c8c54f">
+              <a className="card cert span-6" href="https://www.credly.com/badges/b4581db1-e0dd-44e0-9960-1d0a96c8c54f" target="_blank" rel="noopener noreferrer">
                 <img className="ic" data-icon="microsoft-icon" src="/assets/icons/microsoft-icon.svg" alt="" width={48} height={48} loading="lazy" />
                 <span>
                   <span className="cert__name">Microsoft Certified: Azure AI Fundamentals</span>
@@ -415,7 +370,7 @@ export default function Home() {
               <h2 id="close-h">Email me about a backend role</h2>
               <p>New-grad roles on Java and Spring Boot teams. The resume has every project above.</p>
             </div>
-            <a className="btn btn--primary btn--xl btn--wide" href={EMAIL}>Email me<Arrow /></a>
+            <EmailButton className="btn btn--primary btn--xl btn--wide" up>Email me<Arrow /></EmailButton>
           </div>
           <div className="closing__links">
             <div className="grid">
@@ -428,9 +383,9 @@ export default function Home() {
               <div className="span-2 footer__col">
                 <h3>Projects</h3>
                 <ul>
-                  <li><a href="#projects">AvailAPI</a></li>
+                  <li><a href="#projects">GooDeals</a></li>
+                  <li><a href="#more">AvailAPI</a></li>
                   <li><a href="#more">Vanish Vault</a></li>
-                  <li><a href="#more">GooDeals</a></li>
                 </ul>
               </div>
               <div className="span-2 footer__col">
@@ -444,17 +399,17 @@ export default function Home() {
               <div className="span-2 footer__col">
                 <h3>Code</h3>
                 <ul>
-                  <li><a href="https://github.com/hirtic-s/AvailAPI">AvailAPI repo</a></li>
-                  <li><a href="https://github.com/hirtic-s/vanishvault">Vanish Vault repo</a></li>
-                  <li><a href="https://github.com/hirtic-s/GooDeals">GooDeals repo</a></li>
+                  <li><a href="https://github.com/hirtic-s/AvailAPI" target="_blank" rel="noopener noreferrer">AvailAPI repo</a></li>
+                  <li><a href="https://github.com/hirtic-s/vanishvault" target="_blank" rel="noopener noreferrer">Vanish Vault repo</a></li>
+                  <li><a href="https://github.com/hirtic-s/GooDeals" target="_blank" rel="noopener noreferrer">GooDeals repo</a></li>
                 </ul>
               </div>
               <div className="span-2 footer__col">
                 <h3>Elsewhere</h3>
                 <ul>
-                  <li><a href={GITHUB}>GitHub</a></li>
-                  <li><a href={LINKEDIN}>LinkedIn</a></li>
-                  <li><a href={RESUME}>Resume</a></li>
+                  <li><a href={GITHUB} target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                  <li><a href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                  <li><a href={RESUME} target="_blank" rel="noopener noreferrer">Resume</a></li>
                 </ul>
               </div>
             </div>
@@ -465,7 +420,7 @@ export default function Home() {
       </footer>
 
       <nav className="actionbar" aria-label="Quick actions">
-        <a className="btn btn--primary" href={EMAIL}>Email me</a>
+        <EmailButton up>Email me</EmailButton>
       </nav>
     </>
   );

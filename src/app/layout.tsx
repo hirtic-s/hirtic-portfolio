@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Schibsted_Grotesk } from "next/font/google";
+import { Geist } from "next/font/google";
 import Script from "next/script";
 
-const schibsted = Schibsted_Grotesk({
+const geist = Geist({
   subsets: ["latin"],
   weight: "variable",
   display: "swap",
-  variable: "--font-schibsted",
+  variable: "--font-geist",
 });
 
 export const metadata: Metadata = {
@@ -29,27 +29,26 @@ export const viewport: Viewport = {
   themeColor: "#18191b",
 };
 
-// Design kit (public/assets) deal: type service, palette graphite-safety-orange (dark, at the owner's ask), pairing schibsted, radius soft,
+// Design kit (public/assets) deal: type service, palette graphite-safety-orange (dark, at the owner's ask), pairing geist (at the owner's ask), radius soft,
 // buttons arrow. Keep the :root block after the kit's stylesheets: system.css sets the defaults.
 const tokens = `
 :root {
-  --p-bg: #18191b; --p-surface: #222427; --p-ink: #eff0f1; --p-muted: #9c9ea3;
+  --p-bg: #18191b; --p-surface: #222427; --p-ink: #e4e1da; --p-muted: #9b9891;
   --p-accent: #ff4a1f; --p-accent-ink: #18191b; --p-action: #ff4a1f; --p-action-ink: #18191b;
-  --p-inv-bg: #eff0f1; --p-inv-surface: #dedfe0; --p-inv-ink: #18191b; --p-inv-muted: #5b5c5e;
-  --p-inv-accent: #18191b; --p-inv-accent-ink: #eff0f1; --p-inv-action: #18191b; --p-inv-action-ink: #eff0f1;
-  --font-display: var(--font-schibsted), "Schibsted Grotesk", system-ui, sans-serif;
-  --font-text: var(--font-schibsted), "Schibsted Grotesk", system-ui, sans-serif;
+  --p-inv-bg: #e4e1da; --p-inv-surface: #d6d3cc; --p-inv-ink: #18191b; --p-inv-muted: #5b5c5e;
+  --p-inv-accent: #18191b; --p-inv-accent-ink: #e4e1da; --p-inv-action: #18191b; --p-inv-action-ink: #e4e1da;
+  --font-display: var(--font-geist), "Geist", system-ui, sans-serif;
+  --font-text: var(--font-geist), "Geist", system-ui, sans-serif;
   --display-weight: 400;
   --display-tracking: -0.035em;
-  --display-tracking-xl: -0.042em;
-  --ly-scale: 0.98;
+  --display-tracking-xl: -0.045em;
 }`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={schibsted.variable}
+      className={geist.variable}
       data-type="service"
       data-radius="soft"
       data-buttons="arrow"
