@@ -8,6 +8,7 @@
 */
 
 import EmailButton from "@/components/EmailButton";
+import ProjectFloat from "@/components/ProjectFloat";
 
 const RESUME = "https://drive.google.com/file/d/1G1wTw3AlolQoNWvG2wbgmdSQIbRSGrLB/view?usp=sharing";
 const GITHUB = "https://github.com/hirtic-s";
@@ -19,7 +20,6 @@ const tools: Record<string, Tool> = {
   java: { icon: "java", name: "Java" },
   spring: { icon: "spring", name: "Spring Boot" },
   postgres: { icon: "postgres", name: "PostgreSQL" },
-  angular: { icon: "angular", name: "Angular" },
   docker: { icon: "docker", name: "Docker" },
   react: { icon: "react", name: "React" },
   aws: { icon: "aws", name: "AWS S3" },
@@ -42,6 +42,22 @@ function Chips({ ids }: { ids: string[] }) {
   );
 }
 
+function OrbitRing({ cls, icons }: { cls: string; icons: string[] }) {
+  return (
+    <div className={`orbit__ring ${cls}`} aria-hidden="true">
+      {icons.map((icon, i) => (
+        <span key={icon} className="orbit__slot" style={{ ["--a" as string]: `${(360 / icons.length) * i}deg` }}>
+          <span className="orbit__tilt">
+            <span className="orbit__spin">
+              <img className="ic" data-icon={icon} src={`/assets/icons/${icon}.svg`} alt="" width={22} height={22} loading="lazy" />
+            </span>
+          </span>
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function Arrow() {
   return (
     <svg className="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
@@ -51,56 +67,53 @@ function Arrow() {
   );
 }
 
-// the one still diagram (service page): a Spring Boot service and the tools around it
-const hub = {
-  layout: "hub",
-  alt: "A Spring Boot service with PostgreSQL for data, Docker for packaging, AWS for hosting, Postman for API tests, GitHub for code and React for the client.",
-  ground: "none",
-  motion: { pulse: "none" },
-  center: { label: "Spring Boot", icon: "spring" },
-  spokes: [
-    { label: "PostgreSQL", icon: "postgres" },
-    { label: "Docker", icon: "docker" },
-    { label: "AWS", icon: "aws" },
-    { label: "Postman", icon: "postman" },
-    { label: "GitHub", icon: "github" },
-    { label: "React", icon: "react" },
-  ],
-};
-
 const stack: { group: string; items: Tool[] }[] = [
   {
     group: "Languages",
     items: [
       { icon: "java", name: "Java" },
       { icon: "python", name: "Python" },
-    ],
-  },
-  {
-    group: "Cloud and containers",
-    items: [
-      { icon: "aws", name: "AWS" },
-      { icon: "azure", name: "Azure" },
-      { icon: "docker", name: "Docker" },
+      { icon: "javascript", name: "JavaScript" },
+      { icon: "sql", name: "SQL" },
     ],
   },
   {
     group: "Frameworks",
     items: [
       { icon: "spring", name: "Spring Boot" },
-      { icon: "flask", name: "Flask" },
       { icon: "react", name: "React" },
-      { icon: "angular", name: "Angular" },
-      { icon: "nextjs", name: "Next.js" },
     ],
   },
   {
-    group: "Database and tools",
+    group: "Databases",
     items: [
       { icon: "postgres", name: "PostgreSQL" },
+      { icon: "mysql", name: "MySQL" },
+      { icon: "mongodb", name: "MongoDB" },
+    ],
+  },
+  {
+    group: "Cloud and DevOps",
+    items: [
+      { icon: "aws", name: "AWS" },
+      { icon: "docker", name: "Docker" },
+      { icon: "github", name: "GitHub Actions" },
       { icon: "git", name: "Git" },
-      { icon: "github", name: "GitHub" },
+      { icon: "linux", name: "Linux" },
+    ],
+  },
+  {
+    group: "Architecture and testing",
+    items: [
+      { icon: "kafka", name: "Apache Kafka" },
       { icon: "postman", name: "Postman" },
+    ],
+  },
+  {
+    group: "Generative AI and LLM",
+    items: [
+      { icon: "gemini", name: "Gemini API" },
+      { icon: "claude", name: "Claude Code" },
     ],
   },
 ];
@@ -191,10 +204,7 @@ export default function Home() {
                   data-source="client"
                   data-subject="portrait"
                 />
-                <div className="ly-float">
-                  <div className="ly-float__row"><span className="ly-live">GooDeals</span><span>Gemini AI</span></div>
-                  <div className="ly-float__title">An AI shopping assistant across five stores, 10% less spend</div>
-                </div>
+                <ProjectFloat />
               </div>
             </div>
           </div>
@@ -204,12 +214,13 @@ export default function Home() {
           <div className="wrap">
             <div className="grid proj-head">
               <div className="span-6">
-                <h2 id="projects-h">GooDeals, an AI shopping assistant across five stores</h2>
+                <h2 id="projects-h">GooDeals, one price search across four stores</h2>
               </div>
               <div className="span-6 start-7 stack-4">
                 <p>
-                  Ask for a product and GooDeals pulls live deals from Amazon, Flipkart and three more sites, then its
-                  Gemini assistant helps you compare them and pick. It cut user spend by 10%.
+                  GooDeals pulls prices from 4 e-commerce sources into one REST API, fetching them concurrently on Java 21
+                  virtual threads. Gemini 2.5 Flash turns a plain-English query into structured filters, and an LRU cache
+                  skips repeat API calls to stay within rate limits.
                 </p>
                 <Chips ids={["gemini", "java", "spring", "postgres", "react"]} />
                 <p className="proj-links">
@@ -232,7 +243,7 @@ export default function Home() {
               <article className="card card--row card--open m-nolift span-6">
                 <h3>Vanish Vault, files that delete themselves</h3>
                 <p>
-                  Vanish Vault puts a file on AWS S3 behind a password. The link dies after a set time or a set number of downloads.
+                  Vanish Vault stores AES-256-encrypted files on AWS S3 and DynamoDB. Three triggers delete a file: its TTL, a single access, or a brute-force attempt. A Kafka microservice sends breach alerts over WebSocket and AWS SES.
                 </p>
                 <Chips ids={["java", "spring", "aws", "react", "docker"]} />
                 <p className="proj-links">
@@ -243,11 +254,11 @@ export default function Home() {
                 </a>
               </article>
               <article className="card card--row card--open m-nolift span-6">
-                <h3>AvailAPI, uptime checks for REST endpoints</h3>
+                <h3>AvailAPI, multi-tenant uptime monitoring</h3>
                 <p>
-                  Add an endpoint and AvailAPI calls it every 30 seconds, records status and latency, and flags a failure in under 60 seconds.
+                  AvailAPI runs Quartz-scheduled HTTPS health checks, secured with JWT and RBAC, and detects an outage in under 60 seconds. An Isolation Forest model on latency history warns each tenant about latency anomalies and SSL expiry.
                 </p>
-                <Chips ids={["java", "spring", "postgres", "angular", "docker"]} />
+                <Chips ids={["java", "spring", "postgres", "react", "docker"]} />
                 <p className="proj-links">
                   <a className="link" href="https://github.com/hirtic-s/AvailAPI" target="_blank" rel="noopener noreferrer">Read the code</a>
                 </p>
@@ -263,8 +274,8 @@ export default function Home() {
           <div className="wrap">
             <p className="t-label">About</p>
             <p className="mo-wh__text">
-              I like the part of a system <strong>nobody sees</strong>: the check that runs every 30 seconds,
-              the file link that dies on time, the price feed that reads five stores at once.
+              I like the part of a system <strong>nobody sees</strong>: the health check that fires within 60 seconds,
+              the file link that dies on time, the price feed that reads four stores at once.
             </p>
             <div className="grid">
               <ul className="rows about-edu span-7" aria-label="Education">
@@ -301,17 +312,17 @@ export default function Home() {
                 <li>
                   <span className="rows__name">Forecasting models</span>
                   <span className="rows__value">18% more accurate</span>
-                  <p>Built LSTM and XGBoost models on plant sensor data and raised forecast accuracy by 18%.</p>
+                  <p>Tuned LSTM and XGBoost models on time-series sensor data, raising oil and gas forecast accuracy by 18% and finding 12% more high-performing wells.</p>
                 </li>
                 <li>
-                  <span className="rows__name">Simulation deployments</span>
-                  <span className="rows__value">40% fewer manual cycles</span>
-                  <p>Automated remote simulation runs through cloud integration, cutting manual deployment cycles by 40%.</p>
+                  <span className="rows__name">Simulation server pipeline</span>
+                  <span className="rows__value">30% faster boot-up</span>
+                  <p>Built a fault-tolerant Python pipeline that ingests and validates sensor data, with retries and structured logging.</p>
                 </li>
                 <li>
                   <span className="rows__name">Operator training interface</span>
                   <span className="rows__value">Python</span>
-                  <p>Designed a modular GUI for Operator Training Simulators in Python and CustomTkinter.</p>
+                  <p>Delivered 3 core workflows for an Operator Training Simulator in Python and CustomTkinter: authentication, configuration and real-time monitoring.</p>
                 </li>
               </ul>
             </div>
@@ -340,24 +351,42 @@ export default function Home() {
               ))}
               </div>
               <div className="panel stack-panel span-6 start-7" data-visual="">
-                <div className="dg" data-diagram={JSON.stringify(hub)}></div>
+                <div className="orbit" role="img" aria-label="Spring Boot at the centre, orbited by PostgreSQL, Apache Kafka, AWS and Docker, with Java, React, Python, MySQL and MongoDB on the outer ring.">
+                  <OrbitRing cls="orbit__ring--in" icons={["postgres", "kafka", "aws", "docker"]} />
+                  <OrbitRing cls="orbit__ring--out" icons={["java", "react", "python", "mysql", "mongodb"]} />
+                  <span className="orbit__core" aria-hidden="true">
+                    <img className="ic" data-icon="spring" src="/assets/icons/spring.svg" alt="" width={44} height={44} loading="lazy" />
+                  </span>
+                </div>
               </div>
             </div>
-            <div className="grid certs">
-              <a className="card cert span-6" href="https://www.credly.com/badges/60dba673-b120-4d91-8fd5-bf8fc8f592a0" target="_blank" rel="noopener noreferrer">
-                <img className="ic" data-icon="aws" src="/assets/icons/aws.svg" alt="" width={48} height={48} loading="lazy" />
-                <span>
-                  <span className="cert__name">AWS Certified Cloud Practitioner</span>
-                  <span className="cert__link">Verify on Credly</span>
-                </span>
-              </a>
-              <a className="card cert span-6" href="https://www.credly.com/badges/b4581db1-e0dd-44e0-9960-1d0a96c8c54f" target="_blank" rel="noopener noreferrer">
-                <img className="ic" data-icon="microsoft-icon" src="/assets/icons/microsoft-icon.svg" alt="" width={48} height={48} loading="lazy" />
-                <span>
-                  <span className="cert__name">Microsoft Certified: Azure AI Fundamentals</span>
-                  <span className="cert__link">Verify on Credly</span>
-                </span>
-              </a>
+          </div>
+        </section>
+
+        <section className="section" id="certifications" aria-labelledby="certs-h">
+          <div className="wrap">
+            <div className="grid exp">
+              <div className="span-5">
+                <h2 id="certs-h">Certifications</h2>
+              </div>
+              <ul className="rows span-6 start-7">
+                <li>
+                  <span className="rows__name cert-name">
+                    <img className="ic" data-icon="aws" src="/assets/icons/aws.svg" alt="" width={24} height={24} loading="lazy" />
+                    AWS Certified Cloud Practitioner
+                  </span>
+                  <span className="rows__value">January 2026</span>
+                  <p><a className="link" href="https://www.credly.com/badges/60dba673-b120-4d91-8fd5-bf8fc8f592a0" target="_blank" rel="noopener noreferrer">Verify on Credly</a></p>
+                </li>
+                <li>
+                  <span className="rows__name cert-name">
+                    <img className="ic" data-icon="microsoft-icon" src="/assets/icons/microsoft-icon.svg" alt="" width={24} height={24} loading="lazy" />
+                    Microsoft Azure AI Fundamentals (AI-900)
+                  </span>
+                  <span className="rows__value">July 2024</span>
+                  <p><a className="link" href="https://www.credly.com/badges/b4581db1-e0dd-44e0-9960-1d0a96c8c54f" target="_blank" rel="noopener noreferrer">Verify on Credly</a></p>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
@@ -393,6 +422,7 @@ export default function Home() {
                 <ul>
                   <li><a href="#experience">Experience</a></li>
                   <li><a href="#stack">Stack</a></li>
+                  <li><a href="#certifications">Certifications</a></li>
                   <li><a href="#about">About</a></li>
                 </ul>
               </div>

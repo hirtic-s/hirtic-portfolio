@@ -226,5 +226,88 @@
     "url": "https://github.com/gilbarbara/logos",
     "trademark": true,
     "markUrl": "https://spring.io/"
+  },
+  {
+    "file": "javascript.svg",
+    "icon": "logos:javascript",
+    "name": "JavaScript",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://developer.mozilla.org/docs/Web/JavaScript"
+  },
+  {
+    "file": "mysql.svg",
+    "icon": "logos:mysql",
+    "name": "MySQL",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://www.mysql.com/"
+  },
+  {
+    "file": "mongodb.svg",
+    "icon": "logos:mongodb-icon",
+    "name": "MongoDB",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://www.mongodb.com/"
+  },
+  {
+    "file": "linux.svg",
+    "icon": "logos:linux-tux",
+    "name": "Linux",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://www.linux.org/"
+  },
+  {
+    "file": "kafka.svg",
+    "icon": "logos:kafka-icon",
+    "name": "Apache Kafka",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://kafka.apache.org/"
+  },
+  {
+    "file": "claude.svg",
+    "icon": "logos:claude-icon",
+    "name": "Claude",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://claude.com/"
+  },
+  {
+    "file": "sql.svg",
+    "icon": "lucide:database",
+    "name": "SQL (generic database glyph)",
+    "kind": "mono",
+    "source": "lucide",
+    "author": "Lucide Contributors",
+    "licence": "ISC",
+    "url": "https://lucide.dev",
+    "trademark": false
   }
 ]
