@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="ic-dark" suppressHydrationWarning>
         {children}
+        <Analytics />
         {/* the kit's scripts run after hydration so they never fight React over the DOM */}
         <Script type="module" src="/assets/system.js" strategy="afterInteractive" />
         <Script type="module" src="/assets/motion/motion.js" strategy="afterInteractive" />
